@@ -103,7 +103,7 @@ class System():
                     arrayOfDicts.append(udp)
 
             protocolFile.close()
-            os.system("rm -f ../volatile/{0}".format(file))
+            os.system("rm -f ./volatile/{0}".format(file))
             i += 1
 
         tcpDicts = []
