@@ -178,5 +178,6 @@ class System():
 
         return responseList
 
-obj = System("CPU")
-print(obj.gather())
+if __name__ == "__main__":
+    obj = System("CPU")
+    print(obj.gather())
