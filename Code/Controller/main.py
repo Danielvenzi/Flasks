@@ -31,10 +31,18 @@ def registApi():
 
 @app.route('/unregister',methods=['POST'])
 def unregisterApi():
-    data = request.data
-    print("Ddados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
+    data = request.get_json(force=True)
+    apiKey = data["API Register Key"]
+    apiAddr = request.remote_addr
+    #print("Ddados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
 
-    return "Success"
+    conn = sqlite3.connect('database/controllerConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('delete from SystemAPI where apikey = \"{}\";'.format(apiKey))
+    conn.commit()
+    conn.close()
+
+    return jsonify({"Response":"Success"}
 
 if __name__ == "__main__":
     if sys.argv[1] == "run":

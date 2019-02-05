@@ -15,13 +15,14 @@ def getInfoFromAll(action):
     cursor.execute('select id,controllerhost,controllerport,controllername from Controllers;')
     controllersInfo = cursor.fetchall()
     if action == "trust":
-        cursor.execute('select description from ApiConfig where id = 1;')
+        cursor.execute('select description,port from ApiConfig where id = 1;')
         apiDescription = cursor.fetchall()
         cursor.execute('select registerkey from RegisterInfo where id=1;')
         apiRegister = cursor.fetchall()
         conn.close()
         postData = {}
         postData["API Description"] = apiDescription[0][0]
+        postData["API Port"] = apiDescription[0][1]
         postData['API Register Key'] = apiRegister[0][0]
 
         returnDict = {}
@@ -50,13 +51,14 @@ def getInfoFromController(controllerName,action):
     cursor.execute('select id,controllerhost,controllerport,controllername from Controllers where controllername = \"{0}\";'.format(controllerName))
     controllerInfo = cursor.fetchall()
     if action == "trust":
-        cursor.execute('select description from ApiConfig where id = 1;')
+        cursor.execute('select description,port from ApiConfig where id = 1;')
         apiDescription = cursor.fetchall()
         cursor.execute('select registerkey from RegisterInfo where id = 1;')
         apiRegister = cursor.fetchall()
         conn.close()
         postData = {}
         postData["API Description"] = apiDescription[0][0]
+        postData["API Port"] = apiDescription[0][1]
         postData["API Register Key"] = apiRegister[0][0]
 
         returnDict = {}
@@ -383,7 +385,6 @@ def controllerUntrust(options,value):
         response = getInfoFromController(value[0],"untrust")
         for controller in response["controllerInfo"]:
             untrusted = checkIfUntrusted(controller)
-            print(untrusted)
             if untrusted == False:
                 print("INFO - Initializing untrust process on controller: {}".format(controller[3]))
                 if int(controller[2]) == 443:
@@ -541,9 +542,10 @@ def config(action,options,values):
     global  APIAddr
     APIAddr = result[0][2]
     APIInterface = result[0][3]
+    APIDescription = result[0][4]
     conn.close()
 
-    return "\bRunning config - Address: {0}, Port: {1}, Interface: {2}".format(APIPort,APIAddr,APIInterface)
+    return "Running config - Address: {0}, Port: {1}, Interface: {2}, Description: {3}".format(APIPort,APIAddr,APIInterface,APIDescription)
 
 def controller(action,options,values):
     knowActions = ["config","list","trust","untrust"]

@@ -103,6 +103,71 @@ def controllerDescription(description):
     conn.commit()
     conn.close()
 
+# -------- Declaration of the systemapi command action functions -------- #
+
+def apiConfig(options,values):
+    if len(options) == 3:
+        if not "-apiaddr" in options:
+            print("ERROR - Option '-apiaddr' is necessary for the config action.")
+            return None
+        elif not "-apiport" in options:
+            print("ERROR - Option '-apiport' is necessary for the config action.")
+            return None
+        elif not "-apiname" in options:
+            print("ERROR - Option '-apiname' is necessary for the config action.")
+        else:
+            addr = ""
+            port = 0
+            name = ""
+            for option in options:
+                if option == "-apiaddr":
+                    optionIndex = options.index(option)
+                    addr += str(values[optionIndex])
+                elif option == "-apiport":
+                    optionIndex = options.index(option)
+                    port += int(values[optionIndex])
+                elif option == "-apiname":
+                    optionIndex = options.index(option)
+                    name += (values[optionIndex])
+
+            conn = sqlite3.connect("database/controllerConfiguration.db")
+            cursor = conn.cursor()
+
+            cursor.execute('select 1 from SystemAPI where apiname = \"{0}\";'.format(name))
+            existsResult = cursor.fetchall()
+
+            if int(len(existsResult)) == int(0):
+                cursor.execute('select 1 from SystemAPI where apihost = \"{0}\";'.format(addr))
+                addressResult = cursor.fetchall()
+
+                if int(len(addressResult)) == int(0):
+                    cursor.execute('insert into SystemAPI (apihost,apiport,apiname,apikey,known) values (\"{0}\",{1},\"{2}\","None",0);'.format(addr,port,name))
+                    print("OK - New SystemAPI added with: Address - {0}, Port - {1}, Name - {2}".format(addr,port,name))
+                    print("INFO - The SystemAPI is configured but isn't known yet. Use help command for more information.")
+                    conn.commit()
+
+                    conn.close()
+
+                elif len(addressResult) != int(0):
+                    print("ERROR - A SystemAPI with {0} as it's address already exists.".format(addr))
+                    conn.close()
+            else:
+                print("ERROR - A SystemAPI named {0} already exists.".format(name))
+                conn.close()
+
+
+    elif len(options) < 3:
+        print("ERROR - Missing options! Expected '-apiaddr','-apiport' and '-apiname' for the config action. Use help command for more information.")
+
+
+def apiList():
+    print("Work in progress")
+
+def apiAbsorb():
+    print("Work in progress")
+
+def apiFLush():
+    print("Work in progress")
 # -------- Declaration of the commands functions --------- #
 
 def set(action,options,values):
@@ -203,7 +268,47 @@ def config(action,options,values):
     return "Running config - Address: {0}, Port: {1}, Interface: {2}, Description: {3}".format(APIPort, APIAddr, APIInterface,APIDescription)
 
 def systemapi(action,options,values):
-    print("systemapi")
+    knowActions = ["config", "list", "absorb", "flush"]
+    knowOptions = ["-apiaddr", "-apiport", "-apiname"]
+    actionFunction = [apiConfig, apiList, apiAbsorb, apiFlush]
+
+    if len(options) != len(values):
+        return "ERROR - Incorrect usage of options! Use help command for more information."
+    for actions in action:
+        if not actions in knowActions:
+            return "ERROR - '{0}' is not a valid action! Use help command for more information.".format(actions)
+    for option in options:
+        if not option in knowOptions:
+            return "ERROR - '{0}' is not a valid option! Use help command for more information.".format(option)
+
+    for option in options:
+        if option == "-apiaddr":
+            optionIndex = options.index(option)
+            ipAddr = values[optionIndex]
+            if not "." in ipAddr:
+                return "ERROR - {0} is not a valid ip address".format(ipAddr)
+            try:
+                socket.inet_aton(ipAddr)
+            except socket.error:
+                return "ERROR - {0} is not a valid ip address".format(ipAddr)
+
+        elif option == "-apiport":
+            optionIndex = options.index(option)
+            port = values[optionIndex]
+            try:
+                port = int(port)
+            except ValueError:
+                return "ERROR - {0} is not a valid port".format(port)
+
+    for act in action:
+        iterator = 0
+        for knowAction in knowActions:
+            if act == knowAction:
+                response = actionFunction[iterator](options, values)
+            iterator += 1
+
+    return None
+
 
 def get(action,options,values):
     if len(options) != len(values):

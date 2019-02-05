@@ -20,9 +20,6 @@ app.config['JSON_AS_ASCII'] = False
 #        print("123")
 #    return "This is a first attemp!"
 
-def controllerInitialization(app):
-    print(123)
-
 
 #-------------------- Rotas para API sobre métricas de sistema --------------------#
 
