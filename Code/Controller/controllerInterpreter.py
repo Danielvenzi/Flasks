@@ -14,7 +14,8 @@ def getCPU(apiName):
     result = cursor.fetchall()
     conn.close()
 
-    requestGet = requests.get('http://{0}/api/system/cpu',timeout=15.0)
+    print(result[0][0])
+    requestGet = requests.get('http://{0}/api/system/cpu'.format(result[0][0]),timeout=15.0)
     reponseJSON = requestGet.json()
 
     print(reponseJSON)
@@ -26,7 +27,7 @@ def getMem(apiName):
     result = cursor.fetchall()
     conn.close()
 
-    requestGet = requests.get('http://{0}/api/system/mem', timeout=15.0)
+    requestGet = requests.get('http://{0}/api/system/mem'.format(result[0][0]), timeout=15.0)
     reponseJSON = requestGet.json()
 
     print(reponseJSON)
@@ -38,7 +39,7 @@ def getDisk(apiName):
     result = cursor.fetchall()
     conn.close()
 
-    requestGet = requests.get('http://{0}/api/system/disk/all/mb', timeout=15.0)
+    requestGet = requests.get('http://{0}/api/system/disk/all/mb'.format(result[0][0]), timeout=15.0)
     reponseJSON = requestGet.json()
 
     print(reponseJSON)
@@ -50,7 +51,7 @@ def getPort(apiName):
     result = cursor.fetchall()
     conn.close()
 
-    requestGet = requests.get('http://{0}/api/system/port/all', timeout=15.0)
+    requestGet = requests.get('http://{0}/api/system/port/all'.format(result[0][0]), timeout=15.0)
     reponseJSON = requestGet.json()
 
     print(reponseJSON)
