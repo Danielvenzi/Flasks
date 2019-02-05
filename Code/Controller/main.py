@@ -42,7 +42,7 @@ def unregisterApi():
     conn.commit()
     conn.close()
 
-    return jsonify({"Response":"Success"}
+    return jsonify({"Response":"Success"})
 
 if __name__ == "__main__":
     if sys.argv[1] == "run":
