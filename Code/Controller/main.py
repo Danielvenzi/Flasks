@@ -11,13 +11,23 @@ app.config['JSON_AS_ASACII'] = False
 @app.route('/register',methods=['POST'])
 def registApi():
     data = request.get_json(force=True)
-    #jsonData = json.dumps(data)
-    #variables = json.loads(jsonData)
-    #print(variables)
-    print("Dados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
+    apiDescription = data["API Description"]
+    apiKey = data["API Register Key"]
+    apiPort = data["API Port"]
+    apiAddr = request.remote_addr
+    #print("Dados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
 
-    key = "da7d87ad8ya87dggairuia3rga"
-    return jsonify({"Controller Key": key})
+    conn = sqlite3.connect('database/controllerConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute("insert into SystemAPI (apihost,apiport,apiname,known,apikey) values (\"{0}\",{1},\"{2}\",1,\"{3}\");".format(apiAddr,int(apiPort),apiDescription,apiKey))
+    conn.commit()
+    cursor.execute('select description from ControllerConfig where id=1;')
+    resultDesc = cursor.fetchall()
+    cursor.execute('select registerkey from UntrustInfo where id = 1;')
+    resultKey = cursor.fetchall()
+    conn.close()
+
+    return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0]})
 
 @app.route('/unregister',methods=['POST'])
 def unregisterApi():
