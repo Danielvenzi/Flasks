@@ -199,7 +199,7 @@ def apiList(options,values):
 def apiAbsorb():
     print("Work in progress")
 
-def apiFLush():
+def apiFlush():
     print("Work in progress")
 # -------- Declaration of the commands functions --------- #
 
