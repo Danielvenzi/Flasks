@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, redirect, url_for
 import sqlite3
 import sys
-import controllerInterpreter
+#import controllerInterpreter
 
 
 app=Flask(__name__)
