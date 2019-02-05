@@ -473,7 +473,7 @@ def interpreterMainLoop():
 
     hostName = os.popen("hostname").read()
     hostName = hostName.strip("\n")
-    print("# ------------- API configuration terminal --------------- #")
+    print("# ------------- Controller configuration terminal --------------- #")
     while True:
         command = input(r"{0}@Controller: ".format(userName,hostName))
         arraySpecifics = gatherCommandDetails(command)
