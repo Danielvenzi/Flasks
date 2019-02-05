@@ -28,6 +28,5 @@ if __name__ == "__main__":
         app.run(debug=True,host="0.0.0.0", port=80)
     elif sys.argv[2] == "config":
         print("Run interpreter...")
-        controllerInterpreter.
     else:
         print("ERROR - Invalid command line option...")
