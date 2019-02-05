@@ -69,12 +69,15 @@ def getInfoFromController(controllerName,action):
     elif action == "untrust":
         cursor.execute('select description from ApiConfig where id = 1;')
         apiDescription = cursor.fetchall()
+        cursor.execute('select registerkey from RegisterInfo where id = 1;')
+        apiRegister = cursor.fetchall()
         cursor.execute('select controllerkey from Controllers where controllername = \"{0}\";'.format(controllerName))
         controllerKey = cursor.fetchall()
         conn.close()
         postData = {}
         postData["API Description"] = apiDescription[0][0]
         postData["Controller Key"] = controllerKey[0][0]
+        postData["API Register Key"] = apiRegister[0][0]
 
         returnDict = {}
         returnDict["postData"] = postData
@@ -121,7 +124,7 @@ def trustHTTPS(controller,postData):
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
         print("\tERROR - An error occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
-    except request.exceptions.SSLError:
+    except requests.exceptions.SSLError:
         print("\tERROR - An SSL error has occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
 
 
@@ -165,7 +168,7 @@ def untrustHTTPS(controller,postData):
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
         print("\tERROR - An error occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
-    except request.exceptions.SSLError:
+    except requests.exceptions.SSLError:
         print("\tERROR - An SSL error has occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
 
 

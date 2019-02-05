@@ -160,8 +160,41 @@ def apiConfig(options,values):
         print("ERROR - Missing options! Expected '-apiaddr','-apiport' and '-apiname' for the config action. Use help command for more information.")
 
 
-def apiList():
-    print("Work in progress")
+def apiList(options,values):
+    if len(options) == 1:
+        if options[0] == "-apiname":
+            conn = sqlite3.connect('database/controllerConfiguration.db')
+            cursor = conn.cursor()
+            cursor.execute('select * from SystemAPI;')
+            results = cursor.fetchall()
+
+            if len(results) == 0:
+                print("ERROR - No configured SystemAPI's. Use help command for more information.")
+                return None
+
+            if values[0] == "all":
+                cursor.execute('select apiname,apihost,apiport,known from SystemAPI;')
+                results = cursor.fetchall()
+                iterator = 1
+                print("Configured SystemAPI's:")
+                for result in results:
+                    print("\t{0}-) {1}: Address: {2}, Port: {3}, Known: {4}".format(iterator,result[0],result[1],result[2],result[3]))
+                    iterator += 1
+                conn.close()
+            else:
+                cursor.execute('select apiname,apihost,apiport,known from SystemAPI where apiname = \"{0}\"'.format(values[0]))
+                result = cursor.fetchall()
+                if len(result) == 0:
+                    print("ERROR - No SystemAPI named {0} configured.".format(values[0]))
+                    conn.close()
+                else:
+                    print("\t{0}-) {1}: Address: {2}, Port: {3}, Known: {4}".format(1,result[0][0],result[0][1],result[0][2],result[0][3]))
+                    conn.close()
+        else:
+            print("ERROR - Missing option! Expect -apiname for the list action. Use help command for more information.")
+    else:
+        print("ERROR - More options than needed for ACTION list. Use help command for more information.")
+
 
 def apiAbsorb():
     print("Work in progress")
@@ -442,7 +475,7 @@ def interpreterMainLoop():
     hostName = hostName.strip("\n")
     print("# ------------- API configuration terminal --------------- #")
     while True:
-        command = input(r"{0}@System-API: ".format(userName,hostName))
+        command = input(r"{0}@Controller: ".format(userName,hostName))
         arraySpecifics = gatherCommandDetails(command)
         print(arraySpecifics)
         commandResponse = execute(arraySpecifics)
