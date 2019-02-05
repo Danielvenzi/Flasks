@@ -10,7 +10,7 @@ app.config['JSON_AS_ASACII'] = False
 
 @app.route('/register',methods=['POST'])
 def registApi():
-    data = request.json
+    data = request.get_json(force=True)
     #jsonData = json.dumps(data)
     #variables = json.loads(jsonData)
     #print(variables)
