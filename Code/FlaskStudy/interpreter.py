@@ -6,6 +6,188 @@ import requests
 import socket
 import json
 
+
+# ------- controllers trust action function declaration ---------------------------#
+
+def getInfoFromAll(action):
+    conn = sqlite3.connect("database/apiConfiguration.db")
+    cursor = conn.cursor()
+    cursor.execute('select id,controllerhost,controllerport,controllername from Controllers;')
+    controllersInfo = cursor.fetchall()
+    if action == "trust":
+        cursor.execute('select description from ApiConfig where id = 1;')
+        apiDescription = cursor.fetchall()
+        cursor.execute('select registerkey from RegisterInfo where id=1;')
+        apiRegister = cursor.fetchall()
+        conn.close()
+        postData = {}
+        postData["API Description"] = apiDescription[0][0]
+        postData['API Register Key'] = apiRegister[0][0]
+
+        returnDict = {}
+        returnDict["postData"] = postData
+        returnDict["controllerInfo"] = controllersInfo
+        return returnDict
+    elif action == "untrust":
+        cursor.execute('select description from ApiConfig where id = 1;')
+        apiDescription = cursor.fetchall()
+        cursor.execute('select controllerkey from Controllers;')
+        controllerKey = cursor.fetchall()
+        conn.close()
+        postData = {}
+        postData["API Description"] = apiDescription[0][0]
+        postData["Controller Key"] = controllerKey
+
+        returnDict = {}
+        returnDict["postData"] = postData
+        returnDict["controllerInfo"] = controllersInfo
+        return returnDict
+
+
+def getInfoFromController(controllerName,action):
+    conn = sqlite3.connect("database/apiConfiguration.db")
+    cursor = conn.cursor()
+    cursor.execute('select id,controllerhost,controllerport,controllername from Controllers where controllername = \"{0}\";'.format(controllerName))
+    controllerInfo = cursor.fetchall()
+    if action == "trust":
+        cursor.execute('select description from ApiConfig where id = 1;')
+        apiDescription = cursor.fetchall()
+        cursor.execute('select registerkey from RegisterInfo where id = 1;')
+        apiRegister = cursor.fetchall()
+        conn.close()
+        postData = {}
+        postData["API Description"] = apiDescription[0][0]
+        postData["API Register Key"] = apiRegister[0][0]
+
+        returnDict = {}
+        returnDict["postData"] = postData
+        returnDict["controllerInfo"] = controllerInfo
+        return returnDict
+
+    elif action == "untrust":
+        cursor.execute('select description from ApiConfig where id = 1;')
+        apiDescription = cursor.fetchall()
+        cursor.execute('select controllerkey from Controllers where controllername = \"{0}\";'.format(controllerName))
+        controllerKey = cursor.fetchall()
+        conn.close()
+        postData = {}
+        postData["API Description"] = apiDescription[0][0]
+        postData["Controller Key"] = controllerKey[0][0]
+
+        returnDict = {}
+        returnDict["postData"] = postData
+        returnDict["controllerInfo"] = controllerInfo
+        return returnDict
+
+def checkIfTrusted(controller):
+    conn = sqlite3.connect('database/apiConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('select trusted from Controllers where controllername = \"{0}\";'.format(controller[3]))
+    response = cursor.fetchall()
+    conn.close()
+    if response[0][0] == 0:
+        return False
+    elif response[0][0] == 1:
+        return True
+
+def checkIfUntrusted(controller):
+    conn = sqlite3.connect('database/apiConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('select trusted from Controllers where controllername = \"{0}\";'.format(controller[3]))
+    reponse = cursor.fetchall()
+    conn.close()
+    if reponse[0][0] == 1:
+        return False
+    elif reponse[0][0] == 0:
+        return True
+
+def trustHTTPS(controller,postData):
+    try:
+        print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
+        postRequest = requests.post("https://{0}/register".format(controller[1]), data=json.dumps(postData),timeout=15.0)
+        postResponse = postRequest.json()
+        if postRequest.status_code == 200:
+            print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
+            conn = sqlite3.connect("database/apiConfiguration.db")
+            cursor = conn.cursor()
+            cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
+            cursor.execute('update Controllers set controllerkey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
+            print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
+            conn.commit()
+            conn.close()
+    except requests.exceptions.ConnectTimeout:
+        print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
+    except requests.exceptions.ConnectionError:
+        print("\tERROR - An error occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
+    except request.exceptions.SSLError:
+        print("\tERROR - An SSL error has occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
+
+
+def trustHTTP(controller,postData):
+    try:
+        print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
+        postRequest = requests.post("http://{0}/register".format(controller[1]), data=json.dumps(postData),timeout=15.0)
+        postResponse = postRequest.json()
+        if postRequest.status_code == 200:
+            print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
+            conn = sqlite3.connect("database/apiConfiguration.db")
+            cursor = conn.cursor()
+            cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
+            cursor.execute('update Controllers set controllerkey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
+            print("\tINFO - Controller: {0} is now trusted by the System-API".format(controller[3]))
+            conn.commit()
+            conn.close()
+    except requests.exceptions.ConnectTimeout:
+        print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
+    except requests.exceptions.ConnectionError:
+        print("\tERROR - An error occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
+
+
+def trustANY(controller):
+    print("Work in progress..")
+
+def untrustHTTPS(controller,postData):
+    try:
+        print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
+        postRequest = requests.post("https://{0}/unregister".format(controller[1]), data=json.dumps(postData),timeout=15.0)
+        #print(postRequest.text)
+        if postRequest.status_code == 200:
+            print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
+            conn = sqlite3.connect("database/apiConfiguration.db")
+            cursor = conn.cursor()
+            cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
+            print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
+            conn.commit()
+            conn.close()
+    except requests.exceptions.ConnectTimeout:
+        print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
+    except requests.exceptions.ConnectionError:
+        print("\tERROR - An error occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
+    except request.exceptions.SSLError:
+        print("\tERROR - An SSL error has occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
+
+
+def untrustHTTP(controller,postData):
+    try:
+        print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
+        postRequest = requests.post("http://{0}/unregister".format(controller[1]), data=json.dumps(postData),timeout=15.0)
+        #print(postRequest.text)
+        if postRequest.status_code == 200:
+            print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
+            conn = sqlite3.connect("database/apiConfiguration.db")
+            cursor = conn.cursor()
+            cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
+            print("\tINFO - Controller: {0} is now untrusted by System-API".format(controller[3]))
+            conn.commit()
+            conn.close()
+    except requests.exceptions.ConnectTimeout:
+        print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
+    except requests.exceptions.ConnectionError:
+        print("\tERROR - An error occured while trying to connect to {0} at port {1}".format(controller[1],controller[2]))
+
+def untrustANY(controller,postData):
+    print("Work in progress...")
+
 # ------- set command options function declaration ------------ #
 
 def apiAddr(address):
@@ -91,8 +273,8 @@ def controllerConfig(options,values):
                 addressResult = cursor.fetchall()
 
                 if int(len(addressResult)) == int(0):
-                    cursor.execute('insert into Controllers (controllerhost,controllerport,controllername,trusted) values (\"{0}\",{1},\"{2}\",0);'.format(addr,port,name))
-                    print("INFO - New controller added with: Address - {0}, Port - {1}, Name - {2}".format(addr,port,name))
+                    cursor.execute('insert into Controllers (controllerhost,controllerport,controllername,controllerkey,trusted) values (\"{0}\",{1},\"{2}\","None",0);'.format(addr,port,name))
+                    print("OK - New controller added with: Address - {0}, Port - {1}, Name - {2}".format(addr,port,name))
                     print("INFO - The controller is configured but isn't trusted yet. Use help command for more information.")
                     conn.commit()
 
@@ -129,58 +311,90 @@ def controllerList(options,values):
                 print("Configured controllers:")
                 for result in results:
                     print("\t{0}-) {1}: Address: {2}, Port: {3}, Trusted: {4}".format(iterator,result[0],result[1],result[2],result[3]))
+                    iterator += 1
                 conn.close()
             else:
-                cursor.execute('select controllername,controllerhost,controllerport from Controllers where controllername = \"{0}\"'.format(values[0]))
+                cursor.execute('select controllername,controllerhost,controllerport,trusted from Controllers where controllername = \"{0}\"'.format(values[0]))
                 result = cursor.fetchall()
                 if len(result) == 0:
                     print("ERROR - No controller named {0} configured.".format(values[0]))
                     conn.close()
                 else:
-                    print("\t{0}-) {1}: Address: {2}, Port: {3}".format(1,result[0][0],result[0][1],result[0][2]))
+                    print("\t{0}-) {1}: Address: {2}, Port: {3}, Trusted: {4}".format(1,result[0][0],result[0][1],result[0][2],result[0][3]))
                     conn.close()
         else:
-            print("ERROR - Missing option! Expect -controllername for the list action. Use help command for more information.")
+            print("\bERROR - Missing option! Expect -controllername for the list action. Use help command for more information.")
     else:
         print("ERROR - More options than needed for ACTION list. Use help command for more information.")
 
 def controllerTrust(options,value):
     if value[0] == "all":
-        conn = sqlite3.connect("database/apiConfiguration.db")
-        cursor = conn.cursor()
-        cursor.execute('select controllerhost,controllerport,controllername from Controllers;')
-        controllersInfo = cursor.fetchall()
-        cursor.execute('select description from ApiConfig where id = 1;')
-        apiDescription = cursor.fetchall()
-        cursor.execute('select registerkey from RegisterInfo where id=1;')
-        apiRegister = cursor.fetchall()
-        postData = {}
-        postData["API Description"] = apiDescription[0][0]
-        postData['API register key'] = apiRegister[0][0]
+        response = getInfoFromAll("trust")
 
-        for controller in controllersInfo:
-            if int(controller[1]) == 443:
-                try:
-                    postRequest = requests.post("https://{0}/register".format(controller[0]),data=json.dumps(postData),timeout=20.0)
-                except requests.exceptions.ConnectTimeout:
-                    print("ERROR - Unable to connect to {0} at port {1}".format(controller[0],controller[1]))
-                except requests.exceptions.ConnectionError:
-                    print("ERROR - An error occured while trying to connect to {0} at port {1}".format(controller[0],controller[1]))
-                except request.exceptions.SSLError:
-                    print("ERROR - An SSL error has occured while trying to connect to {0} at port {1}".format(controller[0],controller[1]))
+        for controller in response["controllerInfo"]:
+            trusted = checkIfTrusted(controller)
+            if trusted == False:
+                print("INFO - Initializating trust process on controller: {0}".format(controller[3]))
+                if int(controller[2]) == 443:
+                    trustHTTPS(controller,response["postData"])
 
-                if postRequest.status_code == 200:
-                    print("OK - Successfully registered the systems API into Controller: {0}".format(controller[2]))
+                elif int(controller[2]) == 80:
+                    trustHTTP(controller,response["postData"])
 
-            elif int(controller[1]) == 80:
-                print("HTTP")
-            else:
-                print("Another port but still https")
+                else:
+                    print("Another port but still https")
+            elif trusted == True:
+                print("INFO - Controller: {} is already trusted by the SystemAPI".format(controller[3]))
 
     else:
-        print("None")
+        response = getInfoFromController(value[0],"trust")
+
+        for controller in response["controllerInfo"]:
+            trusted = checkIfTrusted(controller)
+            if trusted == False:
+                print("INFO - Initializating trust process on controller: {0}".format(controller[3]))
+                if int(controller[2]) == 443:
+                    trustHTTPS(controller,response["postData"])
+
+                elif int(controller[2]) == 80:
+                    trustHTTP(controller,response["postData"])
+                else:
+                    print("Anotger port but still https")
+            elif trusted == True:
+                print("INFO - Controller {} is already trusted by the SystemAPI".format(controller[3]))
+
 def controllerUntrust(options,value):
-    print(value)
+    if value[0] == "all":
+        response = getInfoFromAll("untrust")
+        for controller in response["controllerInfo"]:
+            untrusted = checkIfUntrusted(controller)
+            if untrusted == False:
+                print("INFO - Initializing untrust process on controller: {}".format(controller[3]))
+                if int(controller[2]) == 443:
+                    untrustHTTPS(controller,response["postData"])
+
+                elif int(controller[2]) == 80:
+                    untrustHTTP(controller,response["postData"])
+                else:
+                    print("Another port but still https")
+            elif untrusted == True:
+                print("INFO - Controller {} is already untruted by the SystemAPI".format(controller[3]))
+    else:
+        response = getInfoFromController(value[0],"untrust")
+        for controller in response["controllerInfo"]:
+            untrusted = checkIfUntrusted(controller)
+            print(untrusted)
+            if untrusted == False:
+                print("INFO - Initializing untrust process on controller: {}".format(controller[3]))
+                if int(controller[2]) == 443:
+                    untrustHTTPS(controller,response["postData"])
+
+                elif int(controller[2]) == 80:
+                    untrustHTTP(controller,response["postData"])
+                else:
+                    print("Another port but still https")
+            elif untrusted == True:
+                print("INFO - Controller {} is already untrusted by the SystemAPI".format(controller[3]))
 
 # ------- Command function declaration --------#
 
@@ -301,7 +515,7 @@ def reset(action,options,values):
         cursor.execute('DROP TABLE IF EXISTS Controllers;')
         cursor.execute('CREATE TABLE IF NOT EXISTS APIConfig (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, host TEXT, port INTEGER, interface TEXT,description TEXT);')
         cursor.execute('CREATE TABLE IF NOT EXISTS RegisterInfo (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, registerkey TEXT NOT NULL);')
-        cursor.execute('CREATE TABLE IF NOT EXISTS Controllers (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, controllerhost TEXT, controllerport INTEGER, controllername TEXT, trusted INTEGER);')
+        cursor.execute('CREATE TABLE IF NOT EXISTS Controllers (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, controllerhost TEXT, controllerport INTEGER, controllername TEXT, trusted INTEGER,controllerkey TEXT);')
         cursor.execute('INSERT INTO APIConfig (host) values (123);')
         cursor.execute("UPDATE APIConfig SET host = \"{0}\",port = {1},interface = \"{2}\" WHERE id=1;".format("127.0.0.1",80,"lo","HostAPI"))
         cursor.execute('INSERT INTO RegisterInfo (registerkey) values ("None");')
@@ -329,7 +543,7 @@ def config(action,options,values):
     APIInterface = result[0][3]
     conn.close()
 
-    return "Running config - Address: {0}, Port: {1}, Interface: {2}".format(APIPort,APIAddr,APIInterface)
+    return "\bRunning config - Address: {0}, Port: {1}, Interface: {2}".format(APIPort,APIAddr,APIInterface)
 
 def controller(action,options,values):
     knowActions = ["config","list","trust","untrust"]
@@ -460,6 +674,7 @@ def interpreterMainLoop():
     while True:
         command = input(r"{0}@System-API: ".format(userName,hostName))
         arraySpecifics = gatherCommandDetails(command)
+        #print(arraySpecifics)
         commandResponse = execute(arraySpecifics)
         if commandResponse == "exit":
             break
