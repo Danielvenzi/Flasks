@@ -3,6 +3,57 @@ import socket
 import sqlite3
 from getmac import get_mac_address
 import hashlib
+import requests
+
+# -------- Declaration of the get command options functions ------ #
+
+def getCPU(apiName):
+    conn = sqlite3.connect('database/controllerConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('select apihost from SystemAPI where apiname = \"{0}\";'.format(apiName))
+    result = cursor.fetchall()
+    conn.close()
+
+    requestGet = requests.get('http://{0}/api/system/cpu',timeout=15.0)
+    reponseJSON = requestGet.json()
+
+    print(reponseJSON)
+
+def getMem(apiName):
+    conn = sqlite3.connect('database/controllerConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('select apihost from SystemAPI where apiname = \"{0}\";'.format(apiName))
+    result = cursor.fetchall()
+    conn.close()
+
+    requestGet = requests.get('http://{0}/api/system/mem', timeout=15.0)
+    reponseJSON = requestGet.json()
+
+    print(reponseJSON)
+
+def getDisk(apiName):
+    conn = sqlite3.connect('database/controllerConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('select apihost from SystemAPI where apiname = \"{0}\";'.format(apiName))
+    result = cursor.fetchall()
+    conn.close()
+
+    requestGet = requests.get('http://{0}/api/system/disk/all/mb', timeout=15.0)
+    reponseJSON = requestGet.json()
+
+    print(reponseJSON)
+
+def getPort(apiName):
+    conn = sqlite3.connect('database/controllerConfiguration.db')
+    cursor = conn.cursor()
+    cursor.execute('select apihost from SystemAPI where apiname = \"{0}\";'.format(apiName))
+    result = cursor.fetchall()
+    conn.close()
+
+    requestGet = requests.get('http://{0}/api/system/port/all', timeout=15.0)
+    reponseJSON = requestGet.json()
+
+    print(reponseJSON)
 
 # -------- Declaration of set command options functions -------- #
 
@@ -68,7 +119,7 @@ def set(action,options,values):
             except socket.error:
                 return "ERROR - {0} is not a valid ip address".format(ipAddr)
 
-        elif option == "-controllerportport":
+        elif option == "-controllerport":
             optionIndex = options.index(option)
             port = values[optionIndex]
             try:
@@ -153,6 +204,53 @@ def config(action,options,values):
 def systemapi(action,options,values):
     print("systemapi")
 
+def get(action,options,values):
+    if len(options) != len(values):
+        return "ERROR - Missing options! Check help for correct usage."
+
+    knowOptions = ["-apiname", "-apimetric"]
+    knowMetrics = ["cpu", "port", "disk", "mem"]
+    for option in options:
+        if option == "-apiname":
+            optionIndex = options.index(option)
+            apiName = values[optionIndex]
+            conn = sqlite3.connect('database/controllerConfiguration.db')
+            cursor = conn.cursor()
+            cursor.execute('select * from SystemAPI;')
+            result = cursor.fetchall()
+            conn.close()
+            if len(result) == 0:
+                return "ERROR - Unknow SystemAPI: {0} passed as parameter.".format(apiName)
+        elif option == "-apimetric":
+            optionIndex = options.index(option)
+            apiMetric = values[optionIndex]
+            if not apiMetric in knowMetrics:
+                return "ERROR - Unknow SystemAPI Metric: {0} passed as parameter.".format(apiMetric)
+    for option in options:
+        if not option in knowOptions:
+            return "ERROR - Option {0} not found".format(option)
+
+    apiName = ""
+    apiMetric = ""
+    for option in options:
+        if option == "-apimetric":
+            optionIndex = options.index(option)
+            apiMetric += str(values[optionIndex])
+        elif option == "-apiname":
+            optionIndex = options.index(option)
+            apiName += str(values[optionIndex])
+
+    if apiMetric == "cpu":
+        result = getCPU(apiName)
+    elif apiMetric == "mem":
+        result = getMem(apiName)
+    elif apiMetric == "disk":
+        result = getDisk(apiName)
+    elif apiMetric == "port":
+        result = getPort(apiName)
+
+    return None
+
 # ------- Declaration of the interpreter core functions --------- #
 
 def gatherCommandDetails(Command):
@@ -212,8 +310,8 @@ def execute(arrayOfDirections):
     options = arrayOfDirections["Options"]
     values = arrayOfDirections["Values"]
 
-    commands = ["set","help","clear","exit","reset","config","systemapi"]
-    commandFunc = [set,help,clear,exit,reset,config,systemapi]
+    commands = ["set","help","clear","exit","reset","config","systemapi","get"]
+    commandFunc = [set,help,clear,exit,reset,config,systemapi,get]
 
     if not command[0] in commands:
         print("{0} - No such command available".format(command[0]))

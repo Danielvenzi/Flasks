@@ -39,7 +39,7 @@ def unregisterApi():
 if __name__ == "__main__":
     if sys.argv[1] == "run":
         app.run(debug=True,host="0.0.0.0", port=80)
-    elif sys.argv[2] == "config":
+    elif sys.argv[1] == "config":
         controllerInterpreter.interpreterMainLoop()
     else:
         print("ERROR - Invalid command line option...")
