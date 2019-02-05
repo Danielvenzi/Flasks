@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, redirect, url_for
 import sqlite3
 import sys
 #import controllerInterpreter
+import json
 
 
 app=Flask(__name__)
@@ -10,7 +11,9 @@ app.config['JSON_AS_ASACII'] = False
 @app.route('/register',methods=['POST'])
 def registApi():
     data = request.data
-    print(data["API Register Key"])
+    jsonData = json.dumps(data)
+    variables = json.loads(jsonData)
+    print(variables)
     print("Dados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
 
     key = "da7d87ad8ya87dggairuia3rga"
