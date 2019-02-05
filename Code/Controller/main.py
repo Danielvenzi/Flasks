@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, redirect, url_for
 import sqlite3
 import sys
-#import controllerInterpreter
+import controllerInterpreter
 import json
 
 
@@ -40,6 +40,6 @@ if __name__ == "__main__":
     if sys.argv[1] == "run":
         app.run(debug=True,host="0.0.0.0", port=80)
     elif sys.argv[2] == "config":
-        print("Run interpreter...")
+        interpreter.interpreterMainLoop()
     else:
         print("ERROR - Invalid command line option...")
