@@ -21,7 +21,7 @@ def requestAuth(func):
         if result[0][0] != apiKey:
             return "ERROR - Authentication with the controller failed",400
         elif result[0][0] == apiKey:
-            return func
+            return func()
     return funcWrapper
 
 @app.route('/register',methods=['POST'])
@@ -51,7 +51,6 @@ def unregisterApi():
     data = request.get_json(force=True)
     apiKey = data["API Register Key"]
     apiAddr = request.remote_addr
-    #print("Ddados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
 
     conn = sqlite3.connect('database/controllerConfiguration.db')
     cursor = conn.cursor()
