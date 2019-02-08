@@ -13,6 +13,7 @@ def requestAuth(func):
         data = request.get_json(force=True)
         apiAddr = request.remote_addr
         apiKey = data["API Register Key"]
+        print(apiKey)
 
         conn = sqlite3.connect("database/controllerConfiguration.db")
         cursor = conn.cursor()

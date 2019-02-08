@@ -121,7 +121,7 @@ def trustHTTPS(controller,postData):
             conn.commit()
             conn.close()
         else:
-            print("ERROR - Trust request came back with status {0}".format(postRequest.status_code))
+            print("\tERROR - Trust request came back with status {0}".format(postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -145,7 +145,7 @@ def trustHTTP(controller,postData):
             conn.commit()
             conn.close()
         else:
-            print("ERROR - Trust process came back with status {0}".format(postRequest.status_code))
+            print("\tERROR - Trust process came back with status {0}".format(postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -169,7 +169,7 @@ def untrustHTTPS(controller,postData):
             conn.commit()
             conn.close()
         else:
-            print("ERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
+            print("\tERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -192,7 +192,7 @@ def untrustHTTP(controller,postData):
             conn.commit()
             conn.close()
         else:
-            print("ERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
+            print("\tERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
