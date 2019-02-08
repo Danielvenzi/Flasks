@@ -13,15 +13,14 @@ def requestAuth(func):
         data = request.get_json(force=True)
         apiAddr = request.remote_addr
         apiKey = data["API Register Key"]
-        print(apiKey)
 
         conn = sqlite3.connect("database/controllerConfiguration.db")
         cursor = conn.cursor()
         cursor.execute('select apikey from SystemAPI where apihost  = \"{0}\";'.format(apiAddr))
         result = cursor.fetchall()
-        if result != apiKey:
+        if result[0][0] != apiKey:
             return "ERROR - Authentication with the controller failed",400
-        elif result == apiKey:
+        elif result[0][0] == apiKey:
             func()
     return funcWrapper
 
