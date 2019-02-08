@@ -14,7 +14,6 @@ def getCPU(apiName):
     result = cursor.fetchall()
     conn.close()
 
-    print(result[0][0])
     requestGet = requests.get('http://{0}/api/system/cpu'.format(result[0][0]),timeout=15.0)
     reponseJSON = requestGet.json()
 

@@ -120,6 +120,8 @@ def trustHTTPS(controller,postData):
             print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
             conn.commit()
             conn.close()
+        else:
+            print("ERROR - Trust request came back with status {0}".format(postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -142,6 +144,8 @@ def trustHTTP(controller,postData):
             print("\tINFO - Controller: {0} is now trusted by the System-API".format(controller[3]))
             conn.commit()
             conn.close()
+        else:
+            print("ERROR - Trust process came back with status {0}".format(postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -164,6 +168,8 @@ def untrustHTTPS(controller,postData):
             print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
             conn.commit()
             conn.close()
+        else:
+            print("ERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -185,6 +191,8 @@ def untrustHTTP(controller,postData):
             print("\tINFO - Controller: {0} is now untrusted by System-API".format(controller[3]))
             conn.commit()
             conn.close()
+        else:
+            print("ERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect, url_for
+from flask import Flask, request, jsonify, redirect, url_for, abort
 import sqlite3
 import sys
 import controllerInterpreter
@@ -7,6 +7,22 @@ import json
 
 app=Flask(__name__)
 app.config['JSON_AS_ASACII'] = False
+
+def requestAuth(func):
+    def funcWrapper():
+        data = request.get_json(force=True)
+        apiAddr = request.remote_addr
+        apiKey = data["API Register Key"]
+
+        conn = sqlite3.connect("database/controllerConfiguration.db")
+        cursor = conn.cursor()
+        cursor.execute('select apikey from SystemAPI where apihost  = \"{0}\";'.format(apiAddr))
+        result = cursor.fetchall()
+        if result != apiKey:
+            return "ERROR - Authentication with the controller failed",400
+        elif result == apiKey:
+            func()
+    return funcWrapper
 
 @app.route('/register',methods=['POST'])
 def registApi():
@@ -30,6 +46,7 @@ def registApi():
     return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0]})
 
 @app.route('/unregister',methods=['POST'])
+@requestAuth
 def unregisterApi():
     data = request.get_json(force=True)
     apiKey = data["API Register Key"]
