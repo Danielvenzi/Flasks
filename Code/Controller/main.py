@@ -21,7 +21,7 @@ def requestAuth(func):
         if result[0][0] != apiKey:
             return "ERROR - Authentication with the controller failed",400
         elif result[0][0] == apiKey:
-            func()
+            return func
     return funcWrapper
 
 @app.route('/register',methods=['POST'])
