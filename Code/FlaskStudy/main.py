@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, './classes')
 from system import *
 import interpreter
+from functools import wraps
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -23,6 +24,7 @@ app.config['JSON_AS_ASCII'] = False
 # -------------- Authentication function decorators ------------ #
 
 def requestAuth(func):
+    @wraps(func)
     def funcWrapper():
         data = request.get_json(force=True)
         apiAddr = request.remote_addr
@@ -40,6 +42,7 @@ def requestAuth(func):
 
 def requestFormat(requestSituation):
     def decorator(func):
+        @wraps(func)
         def funcWrapper(*args,**kwargs):
             data = request.get_json(force=True)
             dataKeys = data.keys()
