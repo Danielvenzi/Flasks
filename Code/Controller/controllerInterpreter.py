@@ -20,7 +20,7 @@ def getCPU(apiName):
 
     try:
         print("INFO - Attempting to connect to {0} at port {1}...".format(result[0][0],result[0][2]))
-        requestGet = requests.get('http://{0}/api/system/cpu'.format(result[0][0]),data=json.dump(dict),timeout=15.0)
+        requestGet = requests.get('http://{0}/api/system/cpu'.format(result[0][0]),data=json.dumps(dict),timeout=15.0)
         if requestGet.status_code == 200:
             reponseJSON = requestGet.json()
             print(reponseJSON)
@@ -46,7 +46,7 @@ def getMem(apiName):
 
     try:
         print("INFO - Attempting to connect to {0} at port {1}...".format(result[0][0], result[0][2]))
-        requestGet = requests.get('http://{0}/api/system/mem'.format(result[0][0]), data=json.dump(dict),timeout=15.0)
+        requestGet = requests.get('http://{0}/api/system/mem'.format(result[0][0]), data=json.dumps(dict),timeout=15.0)
         if requestGet.status_code == 200:
             reponseJSON = requestGet.json()
             print(reponseJSON)
@@ -71,7 +71,7 @@ def getDisk(apiName):
 
     try:
         print("INFO - Attempting to connect to {0} at port {1}...".format(result[0][0], result[0][2]))
-        requestGet = requests.get('http://{0}/api/system/disk/all/mb'.format(result[0][0]), data=json.dump(dict),timeout=15.0)
+        requestGet = requests.get('http://{0}/api/system/disk/all/mb'.format(result[0][0]), data=json.dumps(dict),timeout=15.0)
         if requestGet.status_code == 200:
             reponseJSON = requestGet.json()
             print(reponseJSON)
@@ -96,7 +96,7 @@ def getPort(apiName):
 
     try:
         print("INFO - Attempting to connect to {0} at port {1}...".format(result[0][0], result[0][2]))
-        requestGet = requests.get('http://{0}/api/system/port/all'.format(result[0][0]), data=json.dump(dict),timeout=15.0)
+        requestGet = requests.get('http://{0}/api/system/port/all'.format(result[0][0]), data=json.dumps(dict),timeout=15.0)
         if requestGet.status_code == 200:
             reponseJSON = requestGet.json()
             print(reponseJSON)
