@@ -4,6 +4,7 @@ sys.path.insert(0, './classes')
 from system import *
 import interpreter
 from functools import wraps
+import sqlite3
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
