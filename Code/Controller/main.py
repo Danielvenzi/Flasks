@@ -3,7 +3,7 @@ import sqlite3
 import sys
 import controllerInterpreter
 import json
-
+from functools import wraps
 
 app=Flask(__name__)
 app.config['JSON_AS_ASACII'] = False
@@ -11,6 +11,7 @@ app.config['JSON_AS_ASACII'] = False
 # -------------- Authentication function decorators ------------ #
 
 def requestAuth(func):
+    @wraps(func)
     def funcWrapper():
         data = request.get_json(force=True)
         apiAddr = request.remote_addr
@@ -29,6 +30,7 @@ def requestAuth(func):
 
 def requestFormat(requestSituation):
     def decorator(func):
+        @wraps(func)
         def funcWrapper(*args,**kwargs):
             data = request.get_json(force=True)
             dataKeys = data.keys()
