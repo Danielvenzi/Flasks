@@ -48,6 +48,7 @@ def requestFormat(requestSituation):
             data = request.get_json(force=True)
             print(data)
             dataKeys = data.keys()
+            print(dataKeys)
 
             allNecessary = []
             trustNecessaryFields = ["API Description", "API Port", "API Register Key"]

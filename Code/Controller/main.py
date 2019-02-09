@@ -34,6 +34,8 @@ def requestFormat(requestSituation):
         def funcWrapper(*args,**kwargs):
             data = request.get_json(force=True)
             dataKeys = data.keys()
+            print(data)
+            print(dataKeys)
 
             allNecessary = []
             trustNecessaryFields = ["API Description", "API Port", "API Register Key"]
@@ -46,6 +48,7 @@ def requestFormat(requestSituation):
                 if known == requestSituation:
                     knownIndex = knownRequestSituation.index(known)
                     necessaryFields = allNecessary[knownIndex]
+                    print(necessaryFields)
 
                     if len(dataKeys) != len(necessaryFields):
                         return "ERROR - Not all the necessary fields for the specific situation transaction were passed.",400
