@@ -16,15 +16,21 @@ def requestAuth(func):
         data = request.get_json(force=True)
         apiAddr = request.remote_addr
         apiKey = data["API Register Key"]
+        controllerKey = data["Controller Key"]
 
         conn = sqlite3.connect("database/controllerConfiguration.db")
         cursor = conn.cursor()
         cursor.execute('select apikey from SystemAPI where apihost  = \"{0}\";'.format(apiAddr))
         result = cursor.fetchall()
+        cursor.execute('select registerkey from UntrustInfo;')
+        resultkey = cursor.fetchall()
         if result[0][0] != apiKey:
             return "ERROR - Authentication with the controller failed",400
         elif result[0][0] == apiKey:
-            return func()
+            if resultkey[0][0] == controllerKey:
+                return func()
+            elif resultkey[0][0] != controllerKey:
+                return "Error - Authentication with the controller failed",400
     return funcWrapper
 
 
@@ -37,7 +43,7 @@ def requestFormat(requestSituation):
 
             allNecessary = []
             trustNecessaryFields = ["API Description", "API Port", "API Register Key"]
-            untrustNecessaryFields = ["API Description", "Controller Key"]
+            untrustNecessaryFields = ["API Description", "Controller Key","API Register Key"]
             generalNecessaryFields = ["API Register Key"]
             allNecessary.extend((generalNecessaryFields,untrustNecessaryFields,trustNecessaryFields))
 

@@ -36,7 +36,7 @@ def requestAuth(func):
         cursor.execute('select registerkey from RegisterInfo ;'.format(apiAddr))
         result = cursor.fetchall()
         if result[0][0] != apiKey:
-            return "ERROR - Authentication with the controller failed",400
+            return "ERROR - Authentication with the SystemAPI failed",400
         elif result[0][0] == apiKey:
             return func()
     return funcWrapper
@@ -50,7 +50,7 @@ def requestFormat(requestSituation):
 
             allNecessary = []
             trustNecessaryFields = ["API Description", "API Port", "API Register Key"]
-            untrustNecessaryFields = ["API Description", "Controller Key"]
+            untrustNecessaryFields = ["API Description", "Controller Key","API Register Key"]
             generalNecessaryFields = ["API Register Key"]
             allNecessary.extend((generalNecessaryFields,untrustNecessaryFields,trustNecessaryFields))
 
