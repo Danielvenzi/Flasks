@@ -77,7 +77,6 @@ def getInfoFromController(controllerName,action):
         postData = {}
         postData["API Description"] = apiDescription[0][0]
         postData["Controller Key"] = controllerKey[0][0]
-        postData["API Register Key"] = apiRegister[0][0]
 
         returnDict = {}
         returnDict["postData"] = postData
