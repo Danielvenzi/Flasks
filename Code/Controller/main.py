@@ -8,6 +8,8 @@ import json
 app=Flask(__name__)
 app.config['JSON_AS_ASACII'] = False
 
+# -------------- Authentication function decorators ------------ #
+
 def requestAuth(func):
     def funcWrapper():
         data = request.get_json(force=True)
@@ -21,11 +23,45 @@ def requestAuth(func):
         if result[0][0] != apiKey:
             return "ERROR - Authentication with the controller failed",400
         elif result[0][0] == apiKey:
-            print("We have the same key")
             return func()
     return funcWrapper
 
+
+def requestFormat(requestSituation):
+    def decorator(func):
+        def funcWrapper(*args,**kwargs):
+            data = request.get_json(force=True)
+            dataKeys = data.keys()
+
+            allNecessary = []
+            trustNecessaryFields = ["API Description", "API Port", "API Register Key"]
+            untrustNecessaryFields = ["API Description", "Controller Key"]
+            generalNecessaryFields = ["API Register Key"]
+            allNecessary.extend((generalNecessaryFields,untrustNecessaryFields,trustNecessaryFields))
+
+            knownRequestSituation = ["general","untrust","trust"]
+            for known in knownRequestSituation:
+                if known == requestSituation:
+                    knownIndex = knownRequestSituation.index(known)
+                    necessaryFields = allNecessary[knownIndex]
+
+                    if len(dataKeys) != len(necessaryFields):
+                        return "ERROR - Not all the necessary fields for the specific situation transaction were passed.",400
+                    else:
+                        for key in dataKeys:
+                            if not key in necessaryFields:
+                                return "ERROR - Incorrect request format for the specific situation",400
+                            else:
+                                continue
+                    break
+            return func()
+        return funcWrapper
+    return decorator
+
+# --------------- Flask route function declaration ------------- #
+
 @app.route('/register',methods=['POST'])
+@requestFormat("trust")
 def registApi():
     data = request.get_json(force=True)
     apiDescription = data["API Description"]
@@ -44,9 +80,10 @@ def registApi():
     resultKey = cursor.fetchall()
     conn.close()
 
-    return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0]})
+    return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0],"Status":"Success"})
 
 @app.route('/unregister',methods=['POST'])
+@requestFormat("untrust")
 @requestAuth
 def unregisterApi():
     data = request.get_json(force=True)
@@ -59,7 +96,7 @@ def unregisterApi():
     conn.commit()
     conn.close()
 
-    return jsonify({"Response":"Success"})
+    return jsonify({"Status":"Success"})
 
 if __name__ == "__main__":
     if sys.argv[1] == "run":
