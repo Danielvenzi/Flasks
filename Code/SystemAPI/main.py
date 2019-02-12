@@ -6,6 +6,7 @@ from system import *
 from interpreterMain import *
 from functools import wraps
 import sqlite3
+import os
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -173,7 +174,7 @@ def apiAuthentication(port_number):
 
 if __name__ == "__main__":
     if sys.argv[1] == "run":
-        conn = interpreter.sqlite3.connect('database/apiConfiguration.db')
+        conn = sqlite3.connect('database/apiConfiguration.db')
         cursor = conn.cursor()
 
         cursor.execute('select * from APIConfig where id=1;')
