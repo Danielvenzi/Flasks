@@ -38,7 +38,7 @@ def requestAuth(func):
         cursor.execute('select registerkey from RegisterInfo ;'.format(apiAddr))
         result = cursor.fetchall()
         if result[0][0] != apiKey:
-            return "ERROR - Authentication with the SystemAPI failed",400
+            return jsonify({"Reponse":"ERROR - Authentication with the SystemAPI failed","Status":"400"}),400
         elif result[0][0] == apiKey:
             return func()
     return funcWrapper
@@ -63,11 +63,11 @@ def requestFormat(requestSituation):
                     necessaryFields = allNecessary[knownIndex]
 
                     if len(dataKeys) != len(necessaryFields):
-                        return "ERROR - Not all the necessary fields for the specific situation transaction were passed.",400
+                        return jsonify({"Response":"ERROR - Not all the necessary fields for the specific situation transaction were passed.","Status":"400"}),400
                     else:
                         for key in dataKeys:
                             if not key in necessaryFields:
-                                return "ERROR - Incorrect request format for the specific situation",400
+                                return jsonify({"Response":"ERROR - Incorrect request format for the specific situation","Status":"400"}),400
                             else:
                                 continue
                     break
