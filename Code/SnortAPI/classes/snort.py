@@ -17,7 +17,7 @@ class snortClass():
         conn = sqlite3.connect("database/apiConfiguration.db")
         cursor = conn.cursor()
 
-        cursor.execute("select controllerhost from Controllers where trust = 1;")
+        cursor.execute("select controllerhost from Controllers where trusted = 1;")
         result = cursor.fetchall()
         conn.close()
 
