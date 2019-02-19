@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, './classes')
 sys.path.insert(0,'./interpreter')
 from system import *
+from iptables import *
 from interpreterMain import *
 from functools import wraps
 import sqlite3
@@ -54,9 +55,11 @@ def requestFormat(requestSituation):
             trustNecessaryFields = ["API Description", "API Port", "API Register Key"]
             untrustNecessaryFields = ["API Description", "Controller Key","API Register Key"]
             generalNecessaryFields = ["API Register Key"]
-            allNecessary.extend((generalNecessaryFields,untrustNecessaryFields,trustNecessaryFields))
+            iptablesNecessaryFields = ["API Register Key","Table","Action","Chain","Rule"]
+            snortNecessaryFields = ["API Register Key","Action","Rule"]
+            allNecessary.extend((generalNecessaryFields,untrustNecessaryFields,trustNecessaryFields,iptablesNecessaryFields, snortNecessaryFields))
 
-            knownRequestSituation = ["general","untrust","trust"]
+            knownRequestSituation = ["general","untrust","trust","iptables","snort"]
             for known in knownRequestSituation:
                 if known == requestSituation:
                     knownIndex = knownRequestSituation.index(known)
@@ -155,21 +158,17 @@ def apiPort(protocol):
 
 #-------------------- Rotas para API sobre configuração da iptables --------------------#
 
-@app.route('/api/iptables/create/<table>/<chain>/')
+
+@app.route('/api/iptables',methods=['POST'])
+#@requestFormat("iptables")
+#@requestAuth
 def apiIptablesCreate():
-    return "Work in progress"
+    data = request.get_json(force=True)
+    address = request.remote_addr
+    firewallInstace = iptables(data["Table"],data["Action"],data["Chain"],data["Rule"],address)
+    response = firewallInstace.execute()
 
-@app.route('/api/iptables/list/<table>/<chain>/')
-def apiIptablesList():
-    return "Work in progress"
-
-@app.route('/api/iptables/delete/<table>/<chain>/')
-def apiIptablesDelete():
-    return "Work in progress"
-
-@app.route('/api/system/port/<port_number>')
-def apiAuthentication(port_number):
-    return port_number
+    return jsonify(response)
 
 
 if __name__ == "__main__":
