@@ -1,12 +1,16 @@
 import sys
 sys.path.insert(0, './interpreter')
+sys.path.insert(0, './parallel')
 from interpreterMain import *
+from snortListener import *
 from flask import Flask, request, jsonify, redirect, url_for, abort
 import sqlite3
 import sys
 #import controllerInterpreter
 import json
 from functools import wraps
+import os
+import time
 
 app=Flask(__name__)
 app.config['JSON_AS_ASACII'] = False
@@ -80,7 +84,9 @@ def registApi():
     apiPort = data["API Port"]
     apiType = data["Type"]
     apiAddr = request.remote_addr
-    #print("Dados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
+
+    if (apiType != "snortapi") or (apiType != "systemapi"):
+        return jsonify({"Response":"Undefined API Type","Status":400})
 
     conn = sqlite3.connect('database/controllerConfiguration.db')
     cursor = conn.cursor()
@@ -91,6 +97,12 @@ def registApi():
     cursor.execute('select registerkey from UntrustInfo where id = 1;')
     resultKey = cursor.fetchall()
     conn.close()
+
+    if apiType == "snortapi":
+        os.system(r"iptables -t filter -A INPUT -p udp -s {0} --dport 514 -j ACCEPT".format(apiAddr))
+    elif apiType == "systemapi":
+        os.system(r"iptables -t fitler -A INPUT -p tcp -s {0} --dport 80 -j ACCEPT".format(apiAddr))
+        os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 443 -j ACCEPT".format(apiAddr))
 
     return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0],"Status":"Success"})
 
@@ -113,7 +125,15 @@ def unregisterApi():
 
 if __name__ == "__main__":
     if sys.argv[1] == "run":
-        app.run(debug=True,host="0.0.0.0", port=80)
+        snortListenerPID = os.fork()
+        if snortListenerPID == 0:
+            time.sleep(1)
+            print("Info - Iniatizaling Syslog server...")
+            mainSyslogServer()
+        else:
+            print("Info - Initializing Controller Restfull API")
+            app.run(debug=True,host="0.0.0.0", port=80, use_reloader=False)
+
     elif sys.argv[1] == "config":
         #controllerInterpreter.interpreterMainLoop()
         interpreterMainLoop()
