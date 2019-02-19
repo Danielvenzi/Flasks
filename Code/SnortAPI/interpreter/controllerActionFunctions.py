@@ -19,6 +19,7 @@ def getInfoFromAll(action):
         postData["API Description"] = apiDescription[0][0]
         postData["API Port"] = apiDescription[0][1]
         postData['API Register Key'] = apiRegister[0][0]
+        postData["Type"] = "snortapi"
 
         returnDict = {}
         returnDict["postData"] = postData
@@ -55,6 +56,7 @@ def getInfoFromController(controllerName,action):
         postData["API Description"] = apiDescription[0][0]
         postData["API Port"] = apiDescription[0][1]
         postData["API Register Key"] = apiRegister[0][0]
+        postData["Type"] = "snortapi"
 
         returnDict = {}
         returnDict["postData"] = postData

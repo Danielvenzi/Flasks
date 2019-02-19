@@ -45,7 +45,7 @@ def requestFormat(requestSituation):
             dataKeys = data.keys()
 
             allNecessary = []
-            trustNecessaryFields = ["API Description", "API Port", "API Register Key"]
+            trustNecessaryFields = ["API Description", "API Port", "API Register Key", "Type"]
             untrustNecessaryFields = ["API Description", "Controller Key","API Register Key"]
             generalNecessaryFields = ["API Register Key"]
             allNecessary.extend((generalNecessaryFields,untrustNecessaryFields,trustNecessaryFields))
@@ -78,12 +78,13 @@ def registApi():
     apiDescription = data["API Description"]
     apiKey = data["API Register Key"]
     apiPort = data["API Port"]
+    apiType = data["Type"]
     apiAddr = request.remote_addr
     #print("Dados do post: {}, Endereço de origem: {}".format(data,request.remote_addr))
 
     conn = sqlite3.connect('database/controllerConfiguration.db')
     cursor = conn.cursor()
-    cursor.execute("insert into SystemAPI (apihost,apiport,apiname,known,apikey) values (\"{0}\",{1},\"{2}\",1,\"{3}\");".format(apiAddr,int(apiPort),apiDescription,apiKey))
+    cursor.execute("insert into SystemAPI (apihost,apiport,apiname,known,apikey,apitype) values (\"{0}\",{1},\"{2}\",1,\"{3}\",\"{4}\");".format(apiAddr,int(apiPort),apiDescription,apiKey,apiType))
     conn.commit()
     cursor.execute('select description from ControllerConfig where id=1;')
     resultDesc = cursor.fetchall()
@@ -92,6 +93,7 @@ def registApi():
     conn.close()
 
     return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0],"Status":"Success"})
+
 
 @app.route('/unregister',methods=['POST'])
 @requestFormat("untrust")

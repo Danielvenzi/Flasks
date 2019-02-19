@@ -71,7 +71,7 @@ def reset(action,options,values):
         cursor.execute('DROP TABLE IF EXISTS SystemAPI;')
         cursor.execute('CREATE TABLE IF NOT EXISTS ControllerConfig (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, host TEXT, port INTEGER, interface TEXT,description TEXT);')
         cursor.execute('CREATE TABLE IF NOT EXISTS UntrustInfo (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, registerkey TEXT NOT NULL);')
-        cursor.execute('CREATE TABLE IF NOT EXISTS SystemAPI (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, apihost TEXT, apiport INTEGER, apiname TEXT, known INTEGER,apikey TEXT);')
+        cursor.execute('CREATE TABLE IF NOT EXISTS SystemAPI (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, apihost TEXT, apiport INTEGER, apiname TEXT, known INTEGER,apikey TEXT,apitype TEXT);')
         cursor.execute('INSERT INTO ControllerConfig (host) values (123);')
         cursor.execute("UPDATE ControllerConfig SET host = \"{0}\",port = {1},interface = \"{2}\",description = \"{2}\" WHERE id=1;".format("127.0.0.1", 80,"lo", "ControllerAPI"))
         cursor.execute('INSERT INTO UntrustInfo (registerkey) values ("None");')
