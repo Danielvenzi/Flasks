@@ -123,7 +123,7 @@ def unregisterApi():
 
     os.system(r"iptables -t filter -D INPUT -p udp -s {0} --dport 514 -j ACCEPT &> /dev/null".format(apiAddr))
     os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 80 -j ACCEPT &> /dev/null".format(apiAddr))
-    os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 443 -j ACCEPT &> /dev/null".format(apiAddr))t
+    os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 443 -j ACCEPT &> /dev/null".format(apiAddr))
 
 
     return jsonify({"Status":"Success"})
