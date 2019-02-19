@@ -17,14 +17,6 @@ app.config['JSON_AS_ASCII'] = False
 #def hello_world():
 #    return redirect(url_for('apiStandartHandler'))
 
-
-#@app.route('/api', methods=['GET'])
-#def apiStandartHandler():
-#    if request.method() == "GET":
-#        # Chamar a classe de informações gerais do sistema
-#        print("123")
-#    return "This is a first attemp!"
-
 # -------------- Authentication function decorators ------------ #
 
 def requestAuth(func):

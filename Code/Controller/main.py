@@ -101,7 +101,7 @@ def registApi():
     if apiType == "snortapi":
         os.system(r"iptables -t filter -A INPUT -p udp -s {0} --dport 514 -j ACCEPT".format(apiAddr))
     elif apiType == "systemapi":
-        os.system(r"iptables -t fitler -A INPUT -p tcp -s {0} --dport 80 -j ACCEPT".format(apiAddr))
+        os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 80 -j ACCEPT".format(apiAddr))
         os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 443 -j ACCEPT".format(apiAddr))
 
     return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0],"Status":"Success"})
@@ -120,6 +120,11 @@ def unregisterApi():
     cursor.execute('delete from SystemAPI where apikey = \"{}\";'.format(apiKey))
     conn.commit()
     conn.close()
+
+    os.system(r"iptables -t filter -D INPUT -p udp -s {0} --dport 514 -j ACCEPT &> /dev/null".format(apiAddr))
+    os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 80 -j ACCEPT &> /dev/null".format(apiAddr))
+    os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 443 -j ACCEPT &> /dev/null".format(apiAddr))t
+
 
     return jsonify({"Status":"Success"})
 
