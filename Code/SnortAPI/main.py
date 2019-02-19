@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
         conn.close()
 
-        app.run(debug=True, host=host, port=port,user_reloader=False)
+        app.run(debug=True, host=host, port=port, use_reloader=False)
 
     elif sys.argv[1] == "config":
         interpreterMainLoop()
