@@ -6,6 +6,8 @@ import socketserver
 import os
 import datetime
 
+os.system(r"touch {0}".format(LOG_FILE))
+
 logging.basicConfig(level=logging.INFO, format='%(message)s', datefmt='', filename=LOG_FILE, filemode='a')
 
 class SyslogUDPHandler(socketserver.BaseRequestHandler):

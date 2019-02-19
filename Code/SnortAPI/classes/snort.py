@@ -12,6 +12,34 @@ class snortClass():
         self.controllerAddr = str(controllerAddr)
         self.status = None
 
+    # Method that goes in the local API database and selects the IP's of the Trusted controllers
+    def getIPFromTrustedControllers(self):
+        conn = sqlite3.connect("database/apiConfiguration.db")
+        cursor = conn.cursor()
+
+        cursor.execute("select controllerhost from Controllers where trust = 1;")
+        result = cursor.fetchall()
+        conn.close()
+
+        return result
+
+    # Method that get receives a list of trusted Controller IP's and checks if the the syslog output was already configured for them
+    def checkIfSyslogConfigured(self,listOfTrustedIP):
+        for IP in listOfTrustedIP:
+            print(IP)
+            syslogConfString = "output alert_syslog: host = {0}:514, LOG_AUTH LOG_ALERT".format(IP)
+            with open(self.snortConf,"r+") as snortfile:
+                for line in snortfile:
+                    line = line.strip("\n")
+                    if line == syslogConfString:
+                        self.status = "SC" # Syslog Configured
+                        break
+                os.system("echo '{0}' >> {1}".format(syslogConfString,self.snortConf))
+                snortfile.close()
+
+        self.status = "SSC" # Successfull Syslog Configuration
+
+
     # Class method that return the Text response and status code for the status of other methods
     def statusText(self):
         rdeDict = {"Response":"Rule Doesn't Exist","Status":200}
@@ -164,6 +192,8 @@ class snortClass():
     def execute(self):
         self.checkFileExistance()
         self.checkIfFileIncluded()
+        listOfIP = self.getIPFromTrustedControllers()
+        self.checkIfSyslogConfigured(listOfIP)
 
         self.checkAction()
         if self.status == "RA":
