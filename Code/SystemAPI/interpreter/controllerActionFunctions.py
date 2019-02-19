@@ -137,7 +137,7 @@ def trustHTTP(controller,postData):
             conn = sqlite3.connect("database/apiConfiguration.db")
             cursor = conn.cursor()
             cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
-            cursor.execute('update Controllers set controllerkey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
+            cursor.execute('update Controllers set controllerkey = \"{0}\" where id = {1};'.format(postResponse["Controller Key"],controller[0]))
             print("\tINFO - Controller: {0} is now trusted by the System-API".format(controller[3]))
             conn.commit()
             conn.close()

@@ -85,8 +85,8 @@ def registApi():
     apiType = data["Type"]
     apiAddr = request.remote_addr
 
-    if (apiType != "snortapi") or (apiType != "systemapi"):
-        return jsonify({"Response":"Undefined API Type","Status":400})
+    #if (apiType != "snortapi") or (apiType != "systemapi"):
+    #    return jsonify({"Response":"Undefined API Type","Status":400})
 
     conn = sqlite3.connect('database/controllerConfiguration.db')
     cursor = conn.cursor()
