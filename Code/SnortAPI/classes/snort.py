@@ -1,6 +1,12 @@
 import sqlite3
 import datetime
 import os
+import re
+
+
+includeApiRuleFileInit = "# ----------- Include the apiRules.rules --------- #"
+includeApiFileEnd = "# --------------- End file inclusion ------------- #"
+initialAlertSyslogConfigInit = "# ----------- Configuration of the syslog alerts to the trusted controllers ------- #"
 
 class snortClass():
     def __init__(self,rule,controllerAddr,action):
@@ -26,7 +32,6 @@ class snortClass():
     # Method that get receives a list of trusted Controller IP's and checks if the the syslog output was already configured for them
     def checkIfSyslogConfigured(self,listOfTrustedIP):
         for IP in listOfTrustedIP:
-            print(IP)
             syslogConfString = "output alert_syslog: host = {0}:514, LOG_AUTH LOG_ALERT".format(IP)
             with open(self.snortConf,"r+") as snortfile:
                 for line in snortfile:
@@ -34,7 +39,10 @@ class snortClass():
                     if line == syslogConfString:
                         self.status = "SC" # Syslog Configured
                         break
-                os.system("echo '{0}' >> {1}".format(syslogConfString,self.snortConf))
+
+                self.status = "None"
+                if self.status != "SC":
+                    os.system("echo '{0}' >> {1}".format(syslogConfString,self.snortConf))
                 snortfile.close()
 
         self.status = "SSC" # Successfull Syslog Configuration
@@ -93,17 +101,36 @@ class snortClass():
         else:
             self.status = "RE" # Rule Exists
 
+    # Method that inserts the apiRules.rules inside snort.conf with the following format:
+    #
+    # # -------------- Include the apiRules.rules ----------- #
+    # include $RULE_PATH/apiRules.rules
+    # # --------------- End file inclusion ------------------#
+    #
+    def insertRulesFile(self):
+        includeString = "include $RULE_PATH/{0}".format(self.apiFile)
+        includeApiRuleFileInit = "# ----------- Include the apiRules.rules --------- #"
+        includeApiFileEnd = "# --------------- End file inclusion ------------- #"
+        os.system(r"echo '' >> {1} ; echo '{0}' >> {1} ; echo '{2}' >> {1} ; echo '{3}' >> {1}".format(includeApiRuleFileInit,self.snortConf,includeString,includeApiFileEnd))
+        self.status = "SRFI" # Successfull Rule FIle Include
+
     # Method that checks if the apiRules.rules is included in the snort.conf file
     def checkIfFileIncluded(self):
-        with open(self.snortConf,"r+") as snortfile:
-            for line in snortfile:
-                line = line.strip("\n")
-                if "include $RULE_PATH/"+self.apiFile == line:
-                    self.status = "FAI" # File Already Included
-                    break
+        snortConfContents = os.popen(r"cat {0}".format(self.snortConf)).read()
+        snortConfIncludeOccurences = re.findall(r"include \$RULE_PATH/apiRules.rules",snortConfContents)
+        print(snortConfIncludeOccurences)
+        snortConfInitOccurences = re.findall(r"# ----------- Include the apiRules.rules --------- #",snortConfContents)
+        print(snortConfInitOccurences)
+        snortConfEndOccurences = re.findall(r"# --------------- End file inclusion ------------- #",snortConfContents)
+        print(snortConfEndOccurences)
 
+        if (len(snortConfEndOccurences) == 0) or (len(snortConfInitOccurences) == 0) or (len(snortConfIncludeOccurences) == 0):
+            self.insertRulesFile()
+        elif (len(snortConfEndOccurences) == int(1)) and (len(snortConfInitOccurences) == int(1)) and (len(snortConfIncludeOccurences) == int(1)):
+            self.status = "FAI" # File Already Included
+        else:
             self.status = "FNI" # File Not Included
-            os.system(r"echo 'include $RULE_PATH/{0}' >> {1}".format(self.apiFile,self.snortConf))
+
 
     # Method that logs a new rule in the local API database if it already doesn't exists
     def logRule(self):
@@ -193,6 +220,7 @@ class snortClass():
         self.checkFileExistance()
         self.checkIfFileIncluded()
         listOfIP = self.getIPFromTrustedControllers()
+        print(listOfIP)
         self.checkIfSyslogConfigured(listOfIP)
 
         self.checkAction()
