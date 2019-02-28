@@ -2,9 +2,11 @@ from flask import Flask, request, jsonify, redirect, url_for
 import sys
 sys.path.insert(0, './classes')
 sys.path.insert(0,'./interpreter')
+sys.path.insert(0,'./ruleParser')
 from snort import *
 from interpreterMain import *
 from functools import wraps
+from snortparser import Parser
 import sqlite3
 import os
 
@@ -67,30 +69,61 @@ def requestFormat(requestSituation):
 # ---------------------- Rotas para API do Snort ------------------------------
 
 @app.route("/snort", methods=['POST'])
+#@requestFormat("snort")
+#@requestAuth
 def snort():
-    data = request.get_json(force=True)
-    address = request.remote_addr
-    snortInstance = snortClass(data["Rule"],address,data["Action"])
-    result = snortInstance.execute()
+    try:
+        data = request.get_json(force=True)
+        address = request.remote_addr
+        rule = data["Rule"]
+        # Creates a instance of the Parser class, the Parser class is responsible for the rules analysis
+        parsed = Parser(rule)
 
-    return jsonify(result)
+        # Creates a instance of the snortClass class, this class is responsible for the operations regardind the given rule
+        snortInstance = snortClass(data["Rule"],address,data["Action"])
+        result = snortInstance.execute()
+
+        return jsonify(result)
+
+    except ValueError as err:
+        err = str(err)
+        return jsonify({"Respose":err,"Status":400}),400
+    except SystemError as err:
+        err = str(err)
+        return jsonify({"Respnse":err,"Status":400}),400
+    except SyntaxError as err:
+        err = str(err)
+        return jsonify({"Response":err,"Status":400}),400
 
 if __name__ == "__main__":
-    if sys.argv[1] == "run":
-        conn = sqlite3.connect('database/apiConfiguration.db')
-        cursor = conn.cursor()
+    try:
+        if sys.argv[1] == "run":
+            try:
+                conn = sqlite3.connect('database/apiConfiguration.db')
+                cursor = conn.cursor()
 
-        cursor.execute('select * from APIConfig where id=1;')
-        result = cursor.fetchall()
+                cursor.execute('select * from APIConfig where id=1;')
+                result = cursor.fetchall()
 
-        host = str(result[0][1])
-        port = int(result[0][2])
+                host = str(result[0][1])
+                port = int(result[0][2])
 
-        conn.close()
+                conn.close()
+            except sqlite3.OperationalError as err:
+                print("ERROR - An error has occured when accessing the database: {0}".format(err))
 
-        app.run(debug=True, host=host, port=port, use_reloader=False)
+            try:
+                app.run(debug=True, host=host, port=port, use_reloader=False)
+            except OSError as err:
+                print("ERROR - An error has occurred when initializing the SnortAPI: {0}".format(err))
+            except KeyboardInterrupt as err:
+                print("INFO - Finishing...")
 
-    elif sys.argv[1] == "config":
-        interpreterMainLoop()
-    else:
-        print("ERROR - Invalid option")
+        elif sys.argv[1] == "config":
+            interpreterMainLoop()
+
+        else:
+            print("ERROR - Invalid command: {0}".format(sys.argv[1]))
+
+    except IndexError as err:
+        print("ERROR - No command line option given: {0}".format(err))

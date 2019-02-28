@@ -1,0 +1,100 @@
+import time
+import sqlite3
+import os
+import requests
+import json
+
+# Function that connects to the local api database and returns a list with every registered SystemAPI
+# needed information (apihost,apiport,apikey)
+def getSAPIs():
+    conn = sqlite3.connect("database/controllerConfiguration.db")
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('select id,apihost,apiport,apikey from SystemAPI;')
+        query_result = cursor.fetchall()
+        conn.close()
+
+        return query_result
+
+    except sqlite3.OperationalError as err:
+        print("ERROR - Internal server error: {0}".format(err))
+        os._exit(0)
+
+# Function that connects to the local api database and returns a list with every registered rule
+# needed information (protocol,srcaddr,dstaddr,srcport,dstport)
+def getRULES():
+    conn = sqlite3.connect("database/controllerConfiguration.db")
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('select id,protocol,srcaddr,dstaddr,srcport,dstport from knownAttackers;')
+        query_result = cursor.fetchall()
+        conn.close()
+
+        return query_result
+
+    except sqlite3.OperationalError as err:
+        print("ERROR - Internal server error: {0}".format(err))
+        os._exit(0)
+
+# Function that connects to the local database and checks: if for a given SystemAPI a specific rule is not enforced
+# send the rule parameters to the SystemAPI Rest API
+def applyVaccines(hosts,rules):
+    print("INFO - Initialiazing Health Agent daemon...")
+    print(" * SUCCESS - Health Agent daemon initialiazed")
+    conn = sqlite3.connect("database/controllerConfiguration.db")
+    cursor = conn.cursor()
+
+    try:
+        while True:
+            for rule in rules:
+                rule_id = rule[0]
+                rule_protocol = rule[1]
+                rule_srcaddr = rule[2]
+                rule_dstaddr = rule[3]
+                rule_srcport = rule[4]
+                rule_dstport = rule[5]
+
+                for host in hosts:
+                    host_id = host[0]
+                    host_ip = host[1]
+                    host_port = host[2]
+                    host_key = [3]
+
+                    cursor.execute('select * from vaccineLogs where apiid = {0} and attackerid = {1};'.format(host_id,rule_id))
+                    query_result = cursor.fetchall()
+
+                    if len(query_result) == 0:
+                        if (rule_protocol == "TCP") or (rule_protocol == "UDP"):
+                            try:
+                                post_rule = {"API Register Key":host_key,"Table":"filter","Action":"append","Chain":"input","Rule":{"Protocol":rule_protocol.lower(),"Source":rule_srcaddr,"Destination":rule_dstaddr,"Destination Port":rule_dstport}}
+                                postRequest = requests.post("http://{0}:{1}/iptables".format(host_ip,host_port), data=json.dumps(post_rule),timeout=15.0)
+                                postResponse = postRequest.json(),rule_id
+                                cursor.execute('insert into vaccineLogs (apiid,attackerid) values ({0},{1});'.format(host_id,rule_id))
+                                conn.commit()
+                            except requests.exceptions.ConnectionTimeout as err:
+                                print("ERROR - Health Agent daemon - Connection timeout: {0}".format(err))
+                            except requests.exceptions.ConnectionError as err:
+                                print("ERROR - Health Agent daemon - Connection error: {0}".format(err))
+                        elif rule_protocol == "ICMP":
+                            try:
+                                post_rule = {"API Register Key": host_key, "Table": "filter", "Action": "append","Chain": "input","Rule": {"Protocol": rule_protocol.lower(), "Source": rule_srcaddr,"Destination": rule_dstaddr}}
+                                postRequest = requests.post("http://{0}:{1}/iptables".format(host_ip, host_port),data=json.dumps(post_rule), timeout=15.0)
+                                cursor.execute('insert into vaccineLogs (apiid,attackerid) values ({0},{1});'.format(host_id,rule_id))
+                                conn.commit()
+                            except requests.exceptions.ConnectionTimeout as err:
+                                print("ERROR - Health Agent daemon - Connection timeout: {0}".format(err))
+                            except requests.exceptions.ConnectionError as err:
+                                print("ERROR - Heath Agent daemon - Connection error: {0}".format(err))
+
+            time.sleep(60)
+
+    except KeyboardInterrupt as err:
+        print("INFO - Closing the Health Agent daemon")
+        conn.close()
+        os._exit(0)
+
+
+if __name__ == "__main__":
+    applyVaccines(getSAPIs(),getRULES())

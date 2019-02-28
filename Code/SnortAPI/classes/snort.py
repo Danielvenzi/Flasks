@@ -118,11 +118,8 @@ class snortClass():
     def checkIfFileIncluded(self):
         snortConfContents = os.popen(r"cat {0}".format(self.snortConf)).read()
         snortConfIncludeOccurences = re.findall(r"include \$RULE_PATH/apiRules.rules",snortConfContents)
-        print(snortConfIncludeOccurences)
         snortConfInitOccurences = re.findall(r"# ----------- Include the apiRules.rules --------- #",snortConfContents)
-        print(snortConfInitOccurences)
         snortConfEndOccurences = re.findall(r"# --------------- End file inclusion ------------- #",snortConfContents)
-        print(snortConfEndOccurences)
 
         if (len(snortConfEndOccurences) == 0) or (len(snortConfInitOccurences) == 0) or (len(snortConfIncludeOccurences) == 0):
             self.insertRulesFile()
@@ -220,7 +217,6 @@ class snortClass():
         self.checkFileExistance()
         self.checkIfFileIncluded()
         listOfIP = self.getIPFromTrustedControllers()
-        print(listOfIP)
         self.checkIfSyslogConfigured(listOfIP)
 
         self.checkAction()

@@ -24,10 +24,12 @@ def gatherCommandDetails(Command):
     options = []
     values = []
     for elements in commandIntoArray:
-        if commandIntoArray[0] != "systemapi":
-            if not "-" in elements and (iterator == 0):
-                command.append(elements)
-                action.append(None)
+
+        if commandIntoArray[0] == "systemapi":
+            if iterator == 0:
+                command.append("systemapi")
+            elif iterator == 1:
+                action.append(elements)
             elif elements[0] == "-":
                 options.append(elements)
                 optionIterator = iterator
@@ -35,11 +37,22 @@ def gatherCommandDetails(Command):
                 values.append(elements)
             iterator += 1
 
-        elif commandIntoArray[0] == "systemapi":
+        elif commandIntoArray[0] == "controller":
             if iterator == 0:
-                command.append("systemapi")
+                command.append("controller")
             elif iterator == 1:
                 action.append(elements)
+            elif elements[0] == "-":
+                options.append(elements)
+                optionIterator = iterator
+            elif iterator == optionIterator+1:
+                values.append(elements)
+            iterator += 1
+
+        elif (commandIntoArray[0] != "controller") and (commandIntoArray[0] != "systemapi"):
+            if not "-" in elements and (iterator == 0):
+                command.append(elements)
+                action.append(None)
             elif elements[0] == "-":
                 options.append(elements)
                 optionIterator = iterator
@@ -61,8 +74,8 @@ def execute(arrayOfDirections):
     options = arrayOfDirections["Options"]
     values = arrayOfDirections["Values"]
 
-    commands = ["set","help","clear","exit","reset","config","systemapi","get"]
-    commandFunc = [set,help,clear,exit,reset,config,systemapi,get]
+    commands = ["set","help","clear","exit","reset","config","systemapi","get","controller"]
+    commandFunc = [set,help,clear,exit,reset,config,systemapi,get,controller]
 
     if not command[0] in commands:
         print("{0} - No such command available".format(command[0]))
@@ -89,7 +102,7 @@ def interpreterMainLoop():
     while True:
         command = input(r"{0}@Controller: ".format(userName,hostName))
         arraySpecifics = gatherCommandDetails(command)
-        #print(arraySpecifics)
+        print(arraySpecifics)
         commandResponse = execute(arraySpecifics)
         if commandResponse == "exit":
             break

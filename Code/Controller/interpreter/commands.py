@@ -4,6 +4,7 @@ import sqlite3
 from systemapiOptions import *
 from setOptions import *
 from getOptions import *
+from controllerActions import *
 
 # -------- Declaration of the commands functions --------- #
 
@@ -69,11 +70,15 @@ def reset(action,options,values):
         cursor.execute('DROP TABLE IF EXISTS ControllerConfig;')
         cursor.execute('DROP TABLE IF EXISTS UntrustInfo;')
         cursor.execute('DROP TABLE IF EXISTS SystemAPI;')
+        cursor.execute('DROP TABLE IF EXISTS knownAttackers;')
+        cursor.execute('DROP TABLE IF EXISTS vaccineLogs;')
         cursor.execute('CREATE TABLE IF NOT EXISTS ControllerConfig (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, host TEXT, port INTEGER, interface TEXT,description TEXT);')
         cursor.execute('CREATE TABLE IF NOT EXISTS UntrustInfo (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, registerkey TEXT NOT NULL);')
         cursor.execute('CREATE TABLE IF NOT EXISTS SystemAPI (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, apihost TEXT, apiport INTEGER, apiname TEXT, known INTEGER,apikey TEXT,apitype TEXT);')
+        cursor.execute('CREATE TABLE IF NOT EXISTS knownAttackers (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, protocol TEXT, dstaddr TEXT, srcaddr TEXT,dstport INTEGER, srcport INTEGER, ttl INTEGER);')
+        cursor.execute('CREATE TABLE IF NOT EXISTS vaccineLogs (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, apiid INTEGER REFERENCES SystemAPI(id), attackerid INTEGER REFERENCES knownAttackers(id));')
         cursor.execute('INSERT INTO ControllerConfig (host) values (123);')
-        cursor.execute("UPDATE ControllerConfig SET host = \"{0}\",port = {1},interface = \"{2}\",description = \"{2}\" WHERE id=1;".format("127.0.0.1", 80,"lo", "ControllerAPI"))
+        cursor.execute("UPDATE ControllerConfig SET host = \"{0}\",port = {1},interface = \"{2}\",description = \"{3}\" WHERE id=1;".format("127.0.0.1", 80,"lo", "ControllerAPI"))
         cursor.execute('INSERT INTO UntrustInfo (registerkey) values ("None");')
         conn.commit()
 
@@ -191,5 +196,47 @@ def get(action,options,values):
         result = getDisk(apiName)
     elif apiMetric == "port":
         result = getPort(apiName)
+
+    return None
+
+def controller(action, options, values):
+    knowActions = ["global", "list", "trust", "untrust"]
+    knowOptions = ["-controlleraddr", "-controllerport", "-controllername"]
+    actionFunction = [controllerGlobal, controllerList, controllerTrust, controllerUntrust]
+
+    if len(options) != len(values):
+        return "ERROR - Incorrect usage of options! Use help command for more information."
+    for actions in action:
+        if not actions in knowActions:
+            return "ERROR - '{0}' is not a valid action! Use help command for more information.".format(actions)
+    for option in options:
+        if not option in knowOptions:
+            return "ERROR - '{0}' is not a valid option! Use help command for more information.".format(option)
+
+    for option in options:
+        if option == "-controlleraddr":
+            optionIndex = options.index(option)
+            ipAddr = values[optionIndex]
+            if not "." in ipAddr:
+                return "ERROR - {0} is not a valid ip address".format(ipAddr)
+            try:
+                socket.inet_aton(ipAddr)
+            except socket.error:
+                return "ERROR - {0} is not a valid ip address".format(ipAddr)
+
+        elif option == "-controllerport":
+            optionIndex = options.index(option)
+            port = values[optionIndex]
+            try:
+                port = int(port)
+            except ValueError:
+                return "ERROR - {0} is not a valid port".format(port)
+
+    for act in action:
+        iterator = 0
+        for knowAction in knowActions:
+            if act == knowAction:
+                response = actionFunction[iterator](options, values)
+            iterator += 1
 
     return None

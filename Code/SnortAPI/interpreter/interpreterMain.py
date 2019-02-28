@@ -85,7 +85,7 @@ def interpreterMainLoop():
     hostName = hostName.strip("\n")
     print("# ------------- API configuration terminal --------------- #")
     while True:
-        command = input(r"{0}@System-API: ".format(userName,hostName))
+        command = input(r"{0}@SnortAPI: ".format(userName,hostName))
         arraySpecifics = gatherCommandDetails(command)
         #print(arraySpecifics)
         commandResponse = execute(arraySpecifics)

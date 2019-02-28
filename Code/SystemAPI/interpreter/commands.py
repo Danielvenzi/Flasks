@@ -129,7 +129,7 @@ def reset(action, options, values):
         cursor.execute('CREATE TABLE IF NOT EXISTS APIConfig (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,host TEXT, port INTEGER, interface TEXT, description TEXT);')
         cursor.execute('CREATE TABLE IF NOT EXISTS RegisterInfo (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, registerkey TEXT NOT NULL);')
         cursor.execute('CREATE TABLE IF NOT EXISTS Controllers (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, controllerhost TEXT, controllerport INTEGER, controllername TEXT, trusted INTEGER, controllerkey TEXT);')
-        cursor.execute('CREATE TABLE IF NOT EXISTS IptablesLogs (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, controlleraddr TEXT NOT NULL, receivetime TEXT NOT NULL, tablename TEXT NOT NULL, action TEXT NOT NULL, chain TEXT, protocol TEXT, destinationaddr TEXT, sourceaddr TEXT,interfacein TEXT, interfaceout TEXT, destinationport INTEGER, sourceport INTEGER, synbased INTEGER, tcpflags TEXT, jumpaction TEXT);')
+        cursor.execute('CREATE TABLE IF NOT EXISTS IptablesLogs (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, controlleraddr TEXT NOT NULL, receivetime TEXT NOT NULL, tablename TEXT NOT NULL, action TEXT NOT NULL, chain TEXT, protocol TEXT, destinationaddr TEXT, sourceaddr TEXT,interfacein TEXT, interfaceout TEXT, destinationport INTEGER, sourceport INTEGER, synbased INTEGER, tcpflags TEXT, jumpaction TEXT, ttl INTEGER);')
         cursor.execute('INSERT INTO APIConfig (host) values (123);')
         cursor.execute("UPDATE APIConfig SET host = \"{0}\",port = {1},interface = \"{2}\" WHERE id=1;".format("127.0.0.1", 80,"lo", "HostAPI"))
         cursor.execute('INSERT INTO RegisterInfo (registerkey) values ("None");')

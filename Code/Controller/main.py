@@ -1,8 +1,10 @@
 import sys
 sys.path.insert(0, './interpreter')
 sys.path.insert(0, './parallel')
-from interpreterMain import *
-from snortListener import *
+import interpreterMain
+import snortListener
+import healthAgent
+import ruleCleaner
 from flask import Flask, request, jsonify, redirect, url_for, abort
 import sqlite3
 import sys
@@ -27,17 +29,22 @@ def requestAuth(func):
 
         conn = sqlite3.connect("database/controllerConfiguration.db")
         cursor = conn.cursor()
-        cursor.execute('select apikey from SystemAPI where apihost  = \"{0}\";'.format(apiAddr))
-        result = cursor.fetchall()
-        cursor.execute('select registerkey from UntrustInfo;')
-        resultkey = cursor.fetchall()
-        if result[0][0] != apiKey:
-            return "ERROR - Authentication with the controller failed",400
-        elif result[0][0] == apiKey:
-            if resultkey[0][0] == controllerKey:
-                return func()
-            elif resultkey[0][0] != controllerKey:
-                return "Error - Authentication with the controller failed",400
+        try:
+            cursor.execute('select apikey from SystemAPI where apihost  = \"{0}\";'.format(apiAddr))
+            result = cursor.fetchall()
+            cursor.execute('select registerkey from UntrustInfo;')
+            resultkey = cursor.fetchall()
+            if result[0][0] != apiKey:
+                return "ERROR - Authentication with the controller failed",400
+            elif result[0][0] == apiKey:
+                if resultkey[0][0] == controllerKey:
+                    return func()
+                elif resultkey[0][0] != controllerKey:
+                    return "Error - Authentication with the controller failed",400
+
+        except sqlite3.OperationalError as err:
+            return "ERROR - {0}".format(err),400
+
     return funcWrapper
 
 
@@ -88,23 +95,27 @@ def registApi():
     #if (apiType != "snortapi") or (apiType != "systemapi"):
     #    return jsonify({"Response":"Undefined API Type","Status":400})
 
-    conn = sqlite3.connect('database/controllerConfiguration.db')
-    cursor = conn.cursor()
-    cursor.execute("insert into SystemAPI (apihost,apiport,apiname,known,apikey,apitype) values (\"{0}\",{1},\"{2}\",1,\"{3}\",\"{4}\");".format(apiAddr,int(apiPort),apiDescription,apiKey,apiType))
-    conn.commit()
-    cursor.execute('select description from ControllerConfig where id=1;')
-    resultDesc = cursor.fetchall()
-    cursor.execute('select registerkey from UntrustInfo where id = 1;')
-    resultKey = cursor.fetchall()
-    conn.close()
+    try:
+        conn = sqlite3.connect('database/controllerConfiguration.db')
+        cursor = conn.cursor()
+        cursor.execute("insert into SystemAPI (apihost,apiport,apiname,known,apikey,apitype) values (\"{0}\",{1},\"{2}\",1,\"{3}\",\"{4}\");".format(apiAddr,int(apiPort),apiDescription,apiKey,apiType))
+        conn.commit()
+        cursor.execute('select description from ControllerConfig where id=1;')
+        resultDesc = cursor.fetchall()
+        cursor.execute('select registerkey from UntrustInfo where id = 1;')
+        resultKey = cursor.fetchall()
+        conn.close()
 
-    if apiType == "snortapi":
-        os.system(r"iptables -t filter -A INPUT -p udp -s {0} --dport 514 -j ACCEPT".format(apiAddr))
-    elif apiType == "systemapi":
-        os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 80 -j ACCEPT".format(apiAddr))
-        os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 443 -j ACCEPT".format(apiAddr))
+        if apiType == "snortapi":
+            os.system(r"iptables -t filter -A INPUT -p udp -s {0} --dport 514 -j ACCEPT".format(apiAddr))
+        elif apiType == "systemapi":
+            os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 80 -j ACCEPT".format(apiAddr))
+            os.system(r"iptables -t filter -A INPUT -p tcp -s {0} --dport 443 -j ACCEPT".format(apiAddr))
 
-    return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0],"Status":"Success"})
+        return jsonify({"Controller Key": resultKey[0][0],"Controller Description": resultDesc[0][0],"Status":"Success"})
+
+    except sqlite3.OperationalError as err:
+        return jsonify({"Response": "Internal server error has occured","Status":400})
 
 
 @app.route('/unregister',methods=['POST'])
@@ -115,32 +126,56 @@ def unregisterApi():
     apiKey = data["API Register Key"]
     apiAddr = request.remote_addr
 
-    conn = sqlite3.connect('database/controllerConfiguration.db')
-    cursor = conn.cursor()
-    cursor.execute('delete from SystemAPI where apikey = \"{}\";'.format(apiKey))
-    conn.commit()
-    conn.close()
+    try:
+        conn = sqlite3.connect('database/controllerConfiguration.db')
+        cursor = conn.cursor()
+        cursor.execute('delete from SystemAPI where apikey = \"{}\";'.format(apiKey))
+        conn.commit()
+        conn.close()
 
-    os.system(r"iptables -t filter -D INPUT -p udp -s {0} --dport 514 -j ACCEPT &> /dev/null".format(apiAddr))
-    os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 80 -j ACCEPT &> /dev/null".format(apiAddr))
-    os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 443 -j ACCEPT &> /dev/null".format(apiAddr))
+        os.system(r"iptables -t filter -D INPUT -p udp -s {0} --dport 514 -j ACCEPT &> /dev/null".format(apiAddr))
+        os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 80 -j ACCEPT &> /dev/null".format(apiAddr))
+        os.system(r"iptables -t filter -D INPUT -p tcp -s {0} --dport 443 -j ACCEPT &> /dev/null".format(apiAddr))
 
 
-    return jsonify({"Status":"Success"})
+        return jsonify({"Status":"Success"})
+
+    except sqlite3.OperationalError as err:
+        return jsonify({"Response":"Internal Server error","Status":400})
 
 if __name__ == "__main__":
-    if sys.argv[1] == "run":
-        snortListenerPID = os.fork()
-        if snortListenerPID == 0:
-            time.sleep(1)
-            print("Info - Iniatizaling Syslog server...")
-            mainSyslogServer()
-        else:
-            print("Info - Initializing Controller Restfull API")
-            app.run(debug=True,host="0.0.0.0", port=80, use_reloader=False)
+    try:
+        if sys.argv[1] == "run":
+            snortListenerPID = os.fork()
+            if snortListenerPID == 0:
+                try:
+                    time.sleep(1)
+                    print("Info - Iniatizaling Syslog server...")
+                    snortListener.mainSyslogServer()
+                except SystemError as err:
+                    print("ERROR - An Error has occured: {0}".format(err))
+            else:
+                ruleCleanerPID = os.fork()
+                if ruleCleanerPID == 0:
+                    time.sleep(2)
+                    ruleCleaner.checkIfExpired()
+                else:
+                    healthAgentPID = os.fork()
+                    if healthAgentPID == 0:
+                        time.sleep(3)
+                        healthAgent.applyVaccines(healthAgent.getSAPIs(), healthAgent.getRULES())
+                    else:
+                        try:
+                            print("Info - Initializing Controller Restfull API")
+                            app.run(debug=True,host="0.0.0.0", port=80, use_reloader=False)
+                        except SystemError as err:
+                            print("ERROR - An Error has occured: {0}".format(err))
 
-    elif sys.argv[1] == "config":
-        #controllerInterpreter.interpreterMainLoop()
-        interpreterMainLoop()
-    else:
-        print("ERROR - Invalid command line option...")
+        elif sys.argv[1] == "config":
+            #controllerInterpreter.interpreterMainLoop()
+            interpreterMain.interpreterMainLoop()
+        else:
+            print("ERROR - Invalid command line option...")
+
+    except IndexError as err:
+        print("ERROR - No parameter was given")

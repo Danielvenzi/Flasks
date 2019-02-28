@@ -5,30 +5,30 @@ import requests
 # ------- controllers trust action function declaration ---------------------------#
 
 def getInfoFromAll(action):
-    conn = sqlite3.connect("database/apiConfiguration.db")
+    conn = sqlite3.connect("database/controllerConfiguration.db")
     cursor = conn.cursor()
-    cursor.execute('select id,controllerhost,controllerport,controllername from Controllers;')
+    cursor.execute('select id,apihost,apiport,apiname from SystemAPI;')
     controllersInfo = cursor.fetchall()
     if action == "trust":
-        cursor.execute('select description,port from ApiConfig where id = 1;')
+        cursor.execute('select description,port from ControllerConfig where id = 1;')
         apiDescription = cursor.fetchall()
-        cursor.execute('select registerkey from RegisterInfo where id=1;')
+        cursor.execute('select registerkey from UntrustInfo where id=1;')
         apiRegister = cursor.fetchall()
         conn.close()
         postData = {}
         postData["API Description"] = apiDescription[0][0]
         postData["API Port"] = apiDescription[0][1]
         postData['API Register Key'] = apiRegister[0][0]
-        postData["Type"] = "systemapi"
+        postData["Type"] = "local"
 
         returnDict = {}
         returnDict["postData"] = postData
         returnDict["controllerInfo"] = controllersInfo
         return returnDict
     elif action == "untrust":
-        cursor.execute('select description from ApiConfig where id = 1;')
+        cursor.execute('select description from ControllerConfig where id = 1;')
         apiDescription = cursor.fetchall()
-        cursor.execute('select controllerkey from Controllers;')
+        cursor.execute('select apikey from SystemAPI;')
         controllerKey = cursor.fetchall()
         conn.close()
         postData = {}
@@ -42,21 +42,21 @@ def getInfoFromAll(action):
 
 
 def getInfoFromController(controllerName,action):
-    conn = sqlite3.connect("database/apiConfiguration.db")
+    conn = sqlite3.connect("database/controllerConfiguration.db")
     cursor = conn.cursor()
-    cursor.execute('select id,controllerhost,controllerport,controllername from Controllers where controllername = \"{0}\";'.format(controllerName))
+    cursor.execute('select id,apihost,apiport,apiname from SystemAPI where apiname = \"{0}\";'.format(controllerName))
     controllerInfo = cursor.fetchall()
     if action == "trust":
-        cursor.execute('select description,port from ApiConfig where id = 1;')
+        cursor.execute('select description,port from ControllerConfig where id = 1;')
         apiDescription = cursor.fetchall()
-        cursor.execute('select registerkey from RegisterInfo where id = 1;')
+        cursor.execute('select registerkey from UntrustInfo where id = 1;')
         apiRegister = cursor.fetchall()
         conn.close()
         postData = {}
         postData["API Description"] = apiDescription[0][0]
         postData["API Port"] = apiDescription[0][1]
         postData["API Register Key"] = apiRegister[0][0]
-        postData["Type"] = "systemapi"
+        postData["Type"] = "local"
 
         returnDict = {}
         returnDict["postData"] = postData
@@ -64,11 +64,11 @@ def getInfoFromController(controllerName,action):
         return returnDict
 
     elif action == "untrust":
-        cursor.execute('select description from ApiConfig where id = 1;')
+        cursor.execute('select description from ControllerConfig where id = 1;')
         apiDescription = cursor.fetchall()
-        cursor.execute('select registerkey from RegisterInfo where id = 1;')
+        cursor.execute('select registerkey from UntrustInfo where id = 1;')
         apiRegister = cursor.fetchall()
-        cursor.execute('select controllerkey from Controllers where controllername = \"{0}\";'.format(controllerName))
+        cursor.execute('select apikey from SystemAPI where apiname = \"{0}\";'.format(controllerName))
         controllerKey = cursor.fetchall()
         conn.close()
         postData = {}
@@ -82,9 +82,9 @@ def getInfoFromController(controllerName,action):
         return returnDict
 
 def checkIfTrusted(controller):
-    conn = sqlite3.connect('database/apiConfiguration.db')
+    conn = sqlite3.connect('database/controllerConfiguration.db')
     cursor = conn.cursor()
-    cursor.execute('select trusted from Controllers where controllername = \"{0}\";'.format(controller[3]))
+    cursor.execute('select known from SystemAPI where apiname = \"{0}\";'.format(controller[3]))
     response = cursor.fetchall()
     conn.close()
     if response[0][0] == 0:
@@ -95,7 +95,7 @@ def checkIfTrusted(controller):
 def checkIfUntrusted(controller):
     conn = sqlite3.connect('database/apiConfiguration.db')
     cursor = conn.cursor()
-    cursor.execute('select trusted from Controllers where controllername = \"{0}\";'.format(controller[3]))
+    cursor.execute('select known from SystemAPI where apiname = \"{0}\";'.format(controller[3]))
     reponse = cursor.fetchall()
     conn.close()
     if reponse[0][0] == 1:
@@ -112,14 +112,14 @@ def trustHTTPS(controller,postData):
             status = postResponse["Status"]
             if status == 200:
                 try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
+                    conn = sqlite3.connect("database/controllerConfiguration.db")
                     cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
-                    cursor.execute('update Controllers set controllerkey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
+                    cursor.execute('update SystemAPI set known = 1 where id = {0};'.format(controller[0]))
+                    cursor.execute('update SystemAPI set apikey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
                     conn.commit()
                     conn.close()
-                    print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
-                    print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
+                    print("\tOK - Successfully registered the system API into global Controller: {0}".format(controller[3]))
+                    print("\tINFO - Global Controller: {0} is now trusted by local controller".format(controller[3]))
                 except sqlite3.OperationalError as err:
                     print("\tERROR - {0}".format(err))
             elif status == 400:
@@ -145,14 +145,14 @@ def trustHTTP(controller,postData):
             status = postResponse["Status"]
             if (status == 200):
                 try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
+                    conn = sqlite3.connect("database/controllerConfiguration.db")
                     cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
-                    cursor.execute('update Controllers set controllerkey = \"{0}\" where id = {1};'.format(postResponse["Controller Key"],controller[0]))
+                    cursor.execute('update SystemAPI set known = 1 where id = {0};'.format(controller[0]))
+                    cursor.execute('update SystemAPI set apikey = \"{0}\" where id = {1};'.format(postResponse["Controller Key"],controller[0]))
                     conn.commit()
                     conn.close()
-                    print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
-                    print("\t INFO - Controller: {0} is now trusted by the System-API.".format(controller[3]))
+                    print("\tOK - Successfully registered the system API into global Controller: {0}".format(controller[3]))
+                    print("\t INFO - Global Controller: {0} is now trusted by the local controller.".format(controller[3]))
                 except sqlite3.OperationalError as err:
                     print("\tERROR - {0}".format(err))
             elif status == 400:
@@ -179,13 +179,13 @@ def untrustHTTPS(controller,postData):
             status = postResponse["Status"]
             if status == 200:
                 try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
+                    conn = sqlite3.connect("database/controllerConfiguration.db")
                     cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
+                    cursor.execute('update SystemAPI set known = 0 where id = {0};'.format(controller[0]))
                     conn.commit()
                     conn.close()
-                    print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
-                    print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
+                    print("\tOK - Successfully unregistered the local controller from the Global Controller: {0}".format(controller[3]))
+                    print("\tINFO - Global Controller: {0} is now untrusted by the local controller".format(controller[3]))
                 except sqlite3.OperationalError as err:
                     print("\tERROR - {0}".format(err))
             elif status == 400:
@@ -211,13 +211,13 @@ def untrustHTTP(controller,postData):
             status = postResponse["Status"]
             if status == 200:
                 try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
+                    conn = sqlite3.connect("database/controllerConfiguration.db")
                     cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
+                    cursor.execute('update SystemAPI set known = 0 where id = {0};'.format(controller[0]))
                     conn.commit()
                     conn.close()
-                    print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
-                    print("\tINFO - Controller: {0} is now untrusted by System-API".format(controller[3]))
+                    print("\tOK - Successfully unregistered the local controller from the Global Controller: {0}".format(controller[3]))
+                    print("\tINFO - Global Controller: {0} is now untrusted by the local controller".format(controller[3]))
 
                 except sqlite3.OperationalError as err:
                     print("\tERROR - {0}".format(err))

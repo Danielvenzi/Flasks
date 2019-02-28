@@ -2,12 +2,15 @@ from flask import Flask, request, jsonify, redirect, url_for
 import sys
 sys.path.insert(0, './classes')
 sys.path.insert(0,'./interpreter')
+sys.path.insert(0,'./parallel')
 from system import *
 from iptables import *
 from interpreterMain import *
+from ruleCleaner import *
 from functools import wraps
 import sqlite3
 import os
+import time
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -164,19 +167,42 @@ def apiIptablesCreate():
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "run":
-        conn = sqlite3.connect('database/apiConfiguration.db')
-        cursor = conn.cursor()
+    try:
+        if sys.argv[1] == "run":
+            forkPid = os.fork()
+            if forkPid == 0:
+                time.sleep(3)
+                # Initializes the rule cleaner daemon
+                checkIfExpired()
+            else:
+                try:
+                    print("INFO - Initializing SystemAPI ... ")
+                    conn = sqlite3.connect('database/apiConfiguration.db')
+                    cursor = conn.cursor()
 
-        cursor.execute('select * from APIConfig where id=1;')
-        result = cursor.fetchall()
+                    cursor.execute('select * from APIConfig where id=1;')
+                    result = cursor.fetchall()
 
-        host = str(result[0][1])
-        port = int(result[0][2])
+                    host = str(result[0][1])
+                    port = int(result[0][2])
 
-        conn.close()
+                    conn.close()
+                except sqlite3.OperationalError as err:
+                    print("ERROR - An error has occurred when accessing the database: {0}".format(err))
 
-        app.run(debug=True, host=host, port=port, use_reloader=False)
+                try:
+                    app.run(debug=True, host=host, port=port, use_reloader=False)
+                    os._exit(0)
+                except OSError as err:
+                    print("ERROR - An error has occured when initializing the SystemAPI: {0}".format(err))
+                except KeyboardInterrupt as err:
+                    print("INFO - Finishing...")
 
-    elif sys.argv[1] == "config":
-        interpreterMainLoop()
+        elif sys.argv[1] == "config":
+            interpreterMainLoop()
+
+        else:
+            print("ERROR - Invalid command line option passed: {0}".format(sys.argv[1]))
+
+    except IndexError as err:
+        print("ERROR - No command line option given: {0}".format(err))

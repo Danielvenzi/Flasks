@@ -2,6 +2,7 @@ import os
 import json
 import sqlite3
 import datetime
+import time
 
 class iptables():
 
@@ -100,7 +101,7 @@ class iptables():
         cursor = conn.cursor()
 
         if type == "check":
-            numberOfRuleElements = len(self.ruleOptions.keys())+6
+            numberOfRuleElements = len(self.ruleOptions.keys())+7
             cursor.execute("{0}".format(queryString))
             queryResult = cursor.fetchall()
             conn.close()
@@ -153,8 +154,12 @@ class iptables():
         databaseFields = ["destinationaddr", "sourceaddr", "interfacein", "interfaceout", "protocol", "destinationport","sourceport", "synbased", "tcpflags", "jumpaction"]
 
         currentTime = datetime.datetime.today().strftime('%Y-%m-%d')
+        currentTimeMili = int(round(time.time() * 1000))
 
-        sqlCommand = "insert into IptablesLogs (controlleraddr,receivetime,tablename,action,chain,"
+        if self.actionName == "append":
+            sqlCommand = "insert into IptablesLogs (ttl,controlleraddr,receivetime,tablename,action,chain,"
+        else:
+            sqlCommand = "insert into IptablesLogs (controlleraddr,receivetime,tablename,action,chain,"
         ruleDict = self.ruleOptions
         ruleDictKeys = list(ruleDict.keys())
 
@@ -170,7 +175,10 @@ class iptables():
                         sqlCommand += "{0},".format(sqlOption)
                         changeCounter += 1
                     elif changeCounter == len(ruleDictKeys)-1:
-                        sqlCommand += "{0}) values (\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",".format(sqlOption,self.controllAddr,currentTime,self.tableName,self.actionName,self.chainName)
+                        if self.actionName == "append":
+                            sqlCommand += "{0}) values ({6},\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",".format(sqlOption,self.controllAddr,currentTime,self.tableName,self.actionName,self.chainName,currentTimeMili)
+                        else:
+                            sqlCommand += "{0}) values (\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",".format(sqlOption,self.controllAddr,currentTime,self.tableName,self.actionName,self.chainName)
                         changeCounter += 1
                 iterator += 1
 
