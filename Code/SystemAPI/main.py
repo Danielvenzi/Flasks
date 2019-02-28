@@ -155,8 +155,8 @@ def apiPort(protocol):
 
 
 @app.route('/api/iptables',methods=['POST'])
-#@requestFormat("iptables")
-#@requestAuth
+@requestFormat("iptables")
+@requestAuth
 def apiIptablesCreate():
     data = request.get_json(force=True)
     address = request.remote_addr
