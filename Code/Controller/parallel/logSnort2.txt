@@ -1,0 +1,597 @@
+01:02:02.107385 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107410 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107426 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:00 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107441 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:00 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107457 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4a!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:55 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107472 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4a!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:55 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107487 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034b!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:50 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107502 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034b!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:50 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107518 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd4c!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:36 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107533 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd4c!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:36 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107548 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xba60!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:23 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.107563 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbc57!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:51 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.107580 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 92) ::1.48142 > ::1.514: [bad udp cksum 0x006f -> 0x22e8!] SYSLOG, length: 84
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:43:16 snort kernel: [ 2107.268174] device ens3 entered promiscuous mode
+01:02:02.107596 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xd3ac!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:16 snort systemd[1]: Stopped Snort NIDS Daemon.
+01:02:02.107611 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xddaa!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:16 snort systemd[1]: Started Snort NIDS Daemon.
+01:02:02.107625 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 148) ::1.48142 > ::1.514: [bad udp cksum 0x00a7 -> 0x7fcf!] SYSLOG, length: 140
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:16 snort snort[1489]: Could not remove tcpdump output file /var/log/snort/tcpdump.log.1550979737: No such file or directory
+01:02:02.107641 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 89) ::1.48142 > ::1.514: [bad udp cksum 0x006c -> 0x1a41!] SYSLOG, length: 81
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:43:15 snort kernel: [ 2106.135800] device ens3 left promiscuous mode
+01:02:02.107656 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 69) ::1.48142 > ::1.514: [bad udp cksum 0x0058 -> 0xb1cd!] SYSLOG, length: 61
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:15 snort snort[1489]: *** Caught Term-Signal
+01:02:02.107671 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbb5d!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:52 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.107686 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb559!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:38 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.107702 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x8f32!] SYSLOG, length: 145
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:03 snort dhclient[998]: message repeated 4 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.107717 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 75) ::1.48142 > ::1.514: [bad udp cksum 0x005e -> 0xbeeb!] SYSLOG, length: 67
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:14 snort systemd[1]: Stopping Snort NIDS Daemon...
+01:02:02.107732 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0050!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:35 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107747 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0050!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:35 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107762 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc50!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:29 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107778 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc50!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:29 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107793 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0051!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:25 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107808 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbb5e!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:42 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.107823 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x5d4a!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:49:39 snort kernel: [ 2490.112329] device lo entered promiscuous mode
+01:02:02.107837 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfb46!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:38 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107853 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfb46!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:38 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107868 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0147!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:32 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107883 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0147!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:32 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107897 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbd59!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:30 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.107912 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0051!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:25 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107927 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0152!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:14 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107947 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0152!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:14 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107962 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0552!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:10 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.107977 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0552!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:10 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.107992 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0053!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.108007 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0x3ea8!] SYSLOG, length: 79
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:23 snort kernel: [ 3014.479844] device lo left promiscuous mode
+01:02:02.108022 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0053!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.108037 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0453!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:01 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.108052 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0x46a8!] SYSLOG, length: 79
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:02 snort kernel: [ 2993.380203] device lo left promiscuous mode
+01:02:02.108067 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x4c43!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:02 snort kernel: [ 2992.986949] device lo entered promiscuous mode
+01:02:02.108082 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb759!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:57:55 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.108097 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x932a!] SYSLOG, length: 145
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:57:40 snort dhclient[998]: message repeated 2 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.108112 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:57:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.108127 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:57:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.108142 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 98) ::1.48142 > ::1.514: [bad udp cksum 0x0075 -> 0xefc8!] SYSLOG, length: 90
+	Facility authpriv (10), Severity info (6)
+	Msg: Feb 24 00:57:01 snort CRON[1512]: pam_unix(cron:session): session closed for user root
+01:02:02.108157 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x2f50!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:56:59 snort dhclient[998]: message repeated 32 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.108172 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 109) ::1.48142 > ::1.514: [bad udp cksum 0x0080 -> 0x5c27!] SYSLOG, length: 101
+	Facility authpriv (10), Severity info (6)
+	Msg: Feb 24 00:57:01 snort CRON[1512]: pam_unix(cron:session): session opened for user root by (uid=0)
+01:02:02.108187 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 187) ::1.48142 > ::1.514: [bad udp cksum 0x00ce -> 0xa683!] SYSLOG, length: 179
+	Facility cron (9), Severity info (6)
+	Msg: Feb 24 00:57:01 snort CRON[1513]: (root) CMD (if [ -x /usr/share/mdadm/checkarray ] && [ $(date +%d) -le 7 ]; then /usr/share/mdadm/checkarray --cron --all --idle --quiet; fi)
+01:02:02.108201 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc4f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:39 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.108216 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc4f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:39 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.108232 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x3854!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:42:12 snort dhclient[998]: message repeated 26 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.108247 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xd4ad!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:42:15 snort systemd[1]: Stopped Snort NIDS Daemon.
+01:02:02.108261 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0453!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:01 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.108276 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd45!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.108291 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd45!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.108307 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x3450!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:16 snort dhclient[998]: message repeated 23 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.108322 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:27 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.108337 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 224) ::1.48142 > ::1.514: [bad udp cksum 0x00f3 -> 0x9212!] SYSLOG, length: 216
+	Facility syslog (5), Severity error (3)
+	Msg: Feb 24 00:17:49 snort rsyslogd-2222: command 'KLogPermitNonKernelFacility' is currently not permitted - did you already set it via a RainerScript command (v6+ config)? [v8.16.0 try http://www.rsyslog.com/e/2222 ]
+01:02:02.108352 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x5154!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:16 snort kernel: [ 3007.662097] device lo entered promiscuous mode
+01:02:02.115233 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x6256!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 01:02:02 snort kernel: [ 3232.842507] device lo entered promiscuous mode
+01:02:02.115261 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0551!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 01:02:01 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115277 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0551!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 01:02:01 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115292 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 183) ::1.48142 > ::1.514: [bad udp cksum 0x00ca -> 0x16eb!] SYSLOG, length: 175
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 01:01:58 snort snort: [1:10000002:1] DoS attempt [Classification: Detection of a Denial of Service Attack] [Priority: 2] {TCP} 192.168.1.12:50668 -> 192.168.1.14:80
+01:02:02.115307 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 157) ::1.48142 > ::1.514: [bad udp cksum 0x00b0 -> 0x23c2!] SYSLOG, length: 149
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 01:01:53 snort dhclient[998]: message repeated 4 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 255.255.255.255 port 67 (xid=0x47db9dec)]
+01:02:02.115437 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 183) ::1.48142 > ::1.514: [bad udp cksum 0x00ca -> 0x0ff6!] SYSLOG, length: 175
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 01:01:53 snort snort: [1:10000002:1] DoS attempt [Classification: Detection of a Denial of Service Attack] [Priority: 2] {TCP} 192.168.1.12:49292 -> 192.168.1.14:80
+01:02:02.115455 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x3a58!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 01:00:44 snort dhclient[998]: message repeated 11 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.115480 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 128) ::1.48142 > ::1.514: [bad udp cksum 0x0093 -> 0x4af3!] SYSLOG, length: 120
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 01:00:57 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 255.255.255.255 port 67 (xid=0x47db9dec)
+01:02:02.115495 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 224) ::1.48142 > ::1.514: [bad udp cksum 0x00f3 -> 0xac3c!] SYSLOG, length: 216
+	Facility syslog (5), Severity warning (4)
+	Msg: Feb 24 00:17:49 snort rsyslogd-2184: action 'auth' treated as ':omusrmsg:auth' - please use ':omusrmsg:auth' syntax instead, 'auth' will not be supported in the future [v8.16.0 try http://www.rsyslog.com/e/2184 ]
+01:02:02.115510 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc50!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:19 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115525 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc50!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:19 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115540 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034c!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:40 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115555 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034c!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:40 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115570 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbd60!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:44:10 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.115585 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0x40b2!] SYSLOG, length: 79
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:49:51 snort kernel: [ 2501.850217] device lo left promiscuous mode
+01:02:02.115600 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 220) ::1.48142 > ::1.514: [bad udp cksum 0x00ef -> 0x9e14!] SYSLOG, length: 212
+	Facility syslog (5), Severity error (3)
+	Msg: Feb 24 00:17:49 snort rsyslogd-2207: error during parsing file /etc/rsyslog.conf, on or before line 63: warnings occured in file '/etc/rsyslog.conf' around line 63 [v8.16.0 try http://www.rsyslog.com/e/2207 ]
+01:02:02.115614 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0146!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115629 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0146!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115644 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0152!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:04 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115659 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 137) ::1.48142 > ::1.514: [bad udp cksum 0x009c -> 0x0524!] SYSLOG, length: 129
+	Facility daemon (3), Severity warning (4)
+	Msg: Feb 24 00:23:09 snort systemd-tmpfiles[1450]: [/usr/lib/tmpfiles.d/var.conf:14] Duplicate line for path "/var/log", ignoring.
+01:02:02.115674 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0xc836!] SYSLOG, length: 79
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:23:09 snort systemd[1]: Started Cleanup of Temporary Directories.
+01:02:02.115689 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb45d!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:59 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.115704 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:27 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115718 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x6eb8!] SYSLOG, length: 82
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:23:09 snort systemd[1]: Starting Cleanup of Temporary Directories...
+01:02:02.115733 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xf947!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:57:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115748 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xf947!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:57:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115763 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xd5ab!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:22:36 snort systemd[1]: Stopped Snort NIDS Daemon.
+01:02:02.115778 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 89) ::1.48142 > ::1.514: [bad udp cksum 0x006c -> 0x0544!] SYSLOG, length: 81
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:22:36 snort kernel: [  866.776569] device ens3 left promiscuous mode
+01:02:02.115793 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 92) ::1.48142 > ::1.514: [bad udp cksum 0x006f -> 0x25e5!] SYSLOG, length: 84
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:42:17 snort kernel: [ 2047.800287] device ens3 entered promiscuous mode
+01:02:02.115807 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 75) ::1.48142 > ::1.514: [bad udp cksum 0x005e -> 0xbfea!] SYSLOG, length: 67
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:22:35 snort systemd[1]: Stopping Snort NIDS Daemon...
+01:02:02.115822 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0150!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:24 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115837 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0150!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:24 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115852 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0152!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:04 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115868 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc51!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:19 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115883 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb75d!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:57:15 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.115898 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4b!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.115913 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4b!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115928 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0x39ab!] SYSLOG, length: 79
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:59:44 snort kernel: [ 3095.358270] device lo left promiscuous mode
+01:02:02.115942 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x5054!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:59:41 snort kernel: [ 3091.767261] device lo entered promiscuous mode
+01:02:02.115957 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc51!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:19 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.115972 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 77) ::1.48142 > ::1.514: [bad udp cksum 0x0060 -> 0x0015!] SYSLOG, length: 69
+	Facility syslog (5), Severity info (6)
+	Msg: Feb 24 00:17:49 snort rsyslogd: rsyslogd's groupid changed to 108
+01:02:02.115987 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 76) ::1.48142 > ::1.514: [bad udp cksum 0x005f -> 0x0782!] SYSLOG, length: 68
+	Facility syslog (5), Severity info (6)
+	Msg: Feb 24 00:17:49 snort rsyslogd: rsyslogd's userid changed to 104
+01:02:02.116001 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 164) ::1.48142 > ::1.514: [bad udp cksum 0x00b7 -> 0x5d68!] SYSLOG, length: 156
+	Facility syslog (5), Severity error (3)
+	Msg: Feb 24 00:17:49 snort rsyslogd-2039: Could not open output pipe '/dev/xconsole':: No such file or directory [v8.16.0 try http://www.rsyslog.com/e/2039 ]
+01:02:02.116016 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 162) ::1.48142 > ::1.514: [bad udp cksum 0x00b5 -> 0x7898!] SYSLOG, length: 154
+	Facility syslog (5), Severity warning (4)
+	Msg: Feb 24 00:17:49 snort rsyslogd-2007: action 'action 10' suspended, next retry is Sun Feb 24 00:18:19 2019 [v8.16.0 try http://www.rsyslog.com/e/2007 ]
+01:02:02.116031 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 80) ::1.48142 > ::1.514: [bad udp cksum 0x0063 -> 0x2de2!] SYSLOG, length: 72
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:17:49 snort systemd[1]: Stopping System Logging Service...
+01:02:02.116046 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 77) ::1.48142 > ::1.514: [bad udp cksum 0x0060 -> 0xdb0c!] SYSLOG, length: 69
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:17:49 snort systemd[1]: Stopped System Logging Service.
+01:02:02.116061 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 80) ::1.48142 > ::1.514: [bad udp cksum 0x0063 -> 0x37e0!] SYSLOG, length: 72
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:17:49 snort systemd[1]: Starting System Logging Service...
+01:02:02.116075 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbb61!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:42:22 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116090 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 77) ::1.48142 > ::1.514: [bad udp cksum 0x0060 -> 0xe50a!] SYSLOG, length: 69
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:17:49 snort systemd[1]: Started System Logging Service.
+01:02:02.116105 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0145!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:55 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116119 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0145!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:55 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116134 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 142) ::1.48142 > ::1.514: [bad udp cksum 0x00a1 -> 0x53a4!] SYSLOG, length: 134
+	Facility syslog (5), Severity info (6)
+	Msg: Feb 24 00:17:49 snort rsyslogd: [origin software="rsyslogd" swVersion="8.16.0" x-pid="1422" x-info="http://www.rsyslog.com"] start
+01:02:02.116149 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0151!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:14 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116164 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb460!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:44:19 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116179 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 69) ::1.48142 > ::1.514: [bad udp cksum 0x0058 -> 0xbad4!] SYSLOG, length: 61
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:22:36 snort snort[1401]: *** Caught Term-Signal
+01:02:02.116194 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x024e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:11 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116209 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x024e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:11 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116224 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xdeab!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:42:15 snort systemd[1]: Started Snort NIDS Daemon.
+01:02:02.116238 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0151!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:14 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116253 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0551!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:10 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116268 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0551!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:10 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116283 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0552!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:00 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116297 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0552!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:21:00 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116312 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x014e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:54 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116327 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x014e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:54 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116342 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116356 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116371 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xff4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:46 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116386 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4d!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:15 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116401 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4d!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:15 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116416 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbc5b!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:36:42 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116445 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xff4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:46 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116469 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116484 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4e!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116499 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:00 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116514 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:44:00 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116529 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4a!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:55 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116544 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfe4a!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:55 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116558 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034b!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:50 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116573 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x034b!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:50 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116588 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd4c!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:36 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116603 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd4c!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:43:36 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116618 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xba60!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:23 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116632 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbc57!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:51 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116648 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 92) ::1.48142 > ::1.514: [bad udp cksum 0x006f -> 0x22e8!] SYSLOG, length: 84
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:43:16 snort kernel: [ 2107.268174] device ens3 entered promiscuous mode
+01:02:02.116663 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xd3ac!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:16 snort systemd[1]: Stopped Snort NIDS Daemon.
+01:02:02.116678 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xddaa!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:16 snort systemd[1]: Started Snort NIDS Daemon.
+01:02:02.116692 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 148) ::1.48142 > ::1.514: [bad udp cksum 0x00a7 -> 0x7fcf!] SYSLOG, length: 140
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:16 snort snort[1489]: Could not remove tcpdump output file /var/log/snort/tcpdump.log.1550979737: No such file or directory
+01:02:02.116707 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 89) ::1.48142 > ::1.514: [bad udp cksum 0x006c -> 0x1a41!] SYSLOG, length: 81
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:43:15 snort kernel: [ 2106.135800] device ens3 left promiscuous mode
+01:02:02.116722 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 69) ::1.48142 > ::1.514: [bad udp cksum 0x0058 -> 0xb1cd!] SYSLOG, length: 61
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:15 snort snort[1489]: *** Caught Term-Signal
+01:02:02.116736 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbb5d!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:52 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116751 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb559!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:38 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116766 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x8f32!] SYSLOG, length: 145
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:03 snort dhclient[998]: message repeated 4 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.116781 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 75) ::1.48142 > ::1.514: [bad udp cksum 0x005e -> 0xbeeb!] SYSLOG, length: 67
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:14 snort systemd[1]: Stopping Snort NIDS Daemon...
+01:02:02.116796 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0050!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:35 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116811 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0050!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:35 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116826 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc50!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:29 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116841 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc50!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:29 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116855 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0051!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:25 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116870 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbb5e!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:43:42 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116885 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x5d4a!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:49:39 snort kernel: [ 2490.112329] device lo entered promiscuous mode
+01:02:02.116900 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfb46!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:38 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116915 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfb46!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:38 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116930 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0147!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:32 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.116944 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0147!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:32 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.116959 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xbd59!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:30 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.116974 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0051!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:25 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117008 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0152!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:14 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117024 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0152!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:14 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117039 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0552!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:10 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117054 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0552!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:10 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117068 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0053!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117084 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0x3ea8!] SYSLOG, length: 79
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:23 snort kernel: [ 3014.479844] device lo left promiscuous mode
+01:02:02.117100 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0053!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:05 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117115 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0453!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:01 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117130 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 87) ::1.48142 > ::1.514: [bad udp cksum 0x006a -> 0x46a8!] SYSLOG, length: 79
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:02 snort kernel: [ 2993.380203] device lo left promiscuous mode
+01:02:02.117144 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 90) ::1.48142 > ::1.514: [bad udp cksum 0x006d -> 0x4c43!] SYSLOG, length: 82
+	Facility kernel (0), Severity info (6)
+	Msg: Feb 24 00:58:02 snort kernel: [ 2992.986949] device lo entered promiscuous mode
+01:02:02.117159 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 124) ::1.48142 > ::1.514: [bad udp cksum 0x008f -> 0xb759!] SYSLOG, length: 116
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:57:55 snort dhclient[998]: DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)
+01:02:02.117174 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x932a!] SYSLOG, length: 145
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:57:40 snort dhclient[998]: message repeated 2 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.117188 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:57:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117203 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:57:45 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117218 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 98) ::1.48142 > ::1.514: [bad udp cksum 0x0075 -> 0xefc8!] SYSLOG, length: 90
+	Facility authpriv (10), Severity info (6)
+	Msg: Feb 24 00:57:01 snort CRON[1512]: pam_unix(cron:session): session closed for user root
+01:02:02.117233 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x2f50!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:56:59 snort dhclient[998]: message repeated 32 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.117248 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 109) ::1.48142 > ::1.514: [bad udp cksum 0x0080 -> 0x5c27!] SYSLOG, length: 101
+	Facility authpriv (10), Severity info (6)
+	Msg: Feb 24 00:57:01 snort CRON[1512]: pam_unix(cron:session): session opened for user root by (uid=0)
+01:02:02.117262 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 187) ::1.48142 > ::1.514: [bad udp cksum 0x00ce -> 0xa683!] SYSLOG, length: 179
+	Facility cron (9), Severity info (6)
+	Msg: Feb 24 00:57:01 snort CRON[1513]: (root) CMD (if [ -x /usr/share/mdadm/checkarray ] && [ $(date +%d) -le 7 ]; then /usr/share/mdadm/checkarray --cron --all --idle --quiet; fi)
+01:02:02.117278 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc4f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:39 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117292 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc4f!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:39 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117307 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x3854!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:42:12 snort dhclient[998]: message repeated 26 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.117322 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 72) ::1.48142 > ::1.514: [bad udp cksum 0x005b -> 0xd4ad!] SYSLOG, length: 64
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:42:15 snort systemd[1]: Stopped Snort NIDS Daemon.
+01:02:02.117337 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0x0453!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:20:01 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117352 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd45!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117367 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfd45!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:19:49 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.14 -> 192.168.1.12
+01:02:02.117409 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 154) ::1.48142 > ::1.514: [bad udp cksum 0x00ad -> 0x3450!] SYSLOG, length: 146
+	Facility daemon (3), Severity info (6)
+	Msg: Feb 24 00:49:16 snort dhclient[998]: message repeated 23 times: [ DHCPREQUEST of 192.168.1.15 on ens4 to 192.168.1.1 port 67 (xid=0x47db9dec)]
+01:02:02.117445 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 153) ::1.48142 > ::1.514: [bad udp cksum 0x00ac -> 0xfc47!] SYSLOG, length: 145
+	Facility auth (4), Severity alert (1)
+	Msg: Feb 24 00:49:27 snort snort: [1:10000001:1] ICMP flood [Classification: Generic ICMP event] [Priority: 3] {ICMP} 192.168.1.12 -> 192.168.1.14
+01:02:02.117470 IP6 (flowlabel 0xe9c66, hlim 64, next-header UDP (17) payload length: 224) ::1.48142 > ::1.514: [bad udp cksum 0x00f3 -> 0x9212!] SYSLOG, length: 216
+	Facility syslog (5), Severity error (3)
+	Msg: Feb 24 00:17:49 snort rsyslogd-2222: command 'KLogPermitNonKernelFacility' is currently not permitted - did you already set it via a RainerScript command (v6+ config)? [v8.16.0 try http://www.rsyslog.com/e/2222 ]
