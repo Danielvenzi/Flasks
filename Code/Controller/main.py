@@ -166,8 +166,20 @@ if __name__ == "__main__":
                         healthAgent.applyVaccines(healthAgent.getSAPIs(), healthAgent.getRULES())
                     else:
                         try:
-                            print("Info - Initializing Controller Restfull API")
-                            app.run(debug=True,host="0.0.0.0", port=80, use_reloader=False)
+                            conn = sqlite3.connect("database/controllerConfiguration.db")
+                            cursor = conn.cursor()
+                            try:
+                                cursor.execute("select host,port from ControllerConfig;")
+                                result = cursor.fetchall()
+                                controller_port = result[0][1]
+                                controller_addr = result[0][0]
+
+                                print("This the port: {0}, and the addr: {1}".format(controller_port,controller_addr))
+
+                                print("Info - Initializing Controller Restfull API")
+                                app.run(debug=True, host=str(controller_addr), port=int(controller_port), use_reloader=False)
+                            except sqlite3.OperationalError as err:
+                                print("ERROR - {0}".format(err))
                         except SystemError as err:
                             print("ERROR - An Error has occured: {0}".format(err))
 

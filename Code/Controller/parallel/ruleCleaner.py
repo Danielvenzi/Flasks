@@ -50,9 +50,9 @@ def checkIfExpired():
                     try:
                         cursor.execute("delete from knownAttackers where id = {0};".format(rule[0]))
                         conn.commit()
-                        print("INFO - Deleting rule with id: {0}".format(rule[0]))
+                        print("RuleCleaner - INFO - Deleting rule with id: {0}".format(rule[0]))
                     except sqlite3.OperationalError as err:
-                        print("ERROR - ruleCleaner Daemon -  An error has occured: {0}".format(err))
+                        print("RuleCleaner - ERROR - ruleCleaner Daemon -  An error has occured: {0}".format(err))
 
                 continue
             conn.close()

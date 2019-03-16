@@ -169,7 +169,8 @@ def apiIptablesCreate():
 if __name__ == "__main__":
     try:
         if sys.argv[1] == "run":
-            forkPid = os.fork()
+            #forkPid = os.fork()
+            forkPid = 1
             if forkPid == 0:
                 time.sleep(3)
                 # Initializes the rule cleaner daemon
@@ -191,7 +192,7 @@ if __name__ == "__main__":
                     print("ERROR - An error has occurred when accessing the database: {0}".format(err))
 
                 try:
-                    app.run(debug=True, host=host, port=port, use_reloader=False)
+                    app.run(debug=True, host=host, port=port, use_reloader=True)
                     os._exit(0)
                 except OSError as err:
                     print("ERROR - An error has occured when initializing the SystemAPI: {0}".format(err))

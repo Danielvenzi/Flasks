@@ -38,6 +38,15 @@ def getRULES():
         print("ERROR - Internal server error: {0}".format(err))
         os._exit(0)
 
+
+def encodeRuleJSON(rule):
+    dest = rule["Destination"]
+    src = rule["Source"]
+    proto = rule["Protocol"]
+    final_json = {"Rule":"{{\"{3}\":\"{0}\",\"{4}\":\"{1}\",\"{5}\":\"DROP\",\"{6}\":\"{2}\"}}".format(dest, src, proto,"Destination", "Source", "Jump", "Protocol")}
+
+    return final_json["Rule"]
+
 # Function that connects to the local database and checks: if for a given SystemAPI a specific rule is not enforced
 # send the rule parameters to the SystemAPI Rest API
 def applyVaccines(hosts,rules):
@@ -60,7 +69,7 @@ def applyVaccines(hosts,rules):
                     host_id = host[0]
                     host_ip = host[1]
                     host_port = host[2]
-                    host_key = [3]
+                    host_key = host[3]
 
                     cursor.execute('select * from vaccineLogs where apiid = {0} and attackerid = {1};'.format(host_id,rule_id))
                     query_result = cursor.fetchall()
@@ -68,22 +77,42 @@ def applyVaccines(hosts,rules):
                     if len(query_result) == 0:
                         if (rule_protocol == "TCP") or (rule_protocol == "UDP"):
                             try:
-                                post_rule = {"API Register Key":host_key,"Table":"filter","Action":"append","Chain":"input","Rule":{"Protocol":rule_protocol.lower(),"Source":rule_srcaddr,"Destination":rule_dstaddr,"Destination Port":rule_dstport}}
-                                postRequest = requests.post("http://{0}:{1}/iptables".format(host_ip,host_port), data=json.dumps(post_rule),timeout=15.0)
-                                postResponse = postRequest.json(),rule_id
-                                cursor.execute('insert into vaccineLogs (apiid,attackerid) values ({0},{1});'.format(host_id,rule_id))
-                                conn.commit()
-                            except requests.exceptions.ConnectionTimeout as err:
+                                rule_param = {"Protocol":rule_protocol.lower(),"Source":rule_srcaddr,"Destination":rule_dstaddr,"Destination Port":rule_dstport,"Jump":"DROP"}
+                                #rule_param = encodeRuleJSON(rule_param)
+                                post_rule = {"API Register Key":host_key,"Table":"filter","Action":"append","Chain":"input","Rule":rule_param}
+                                json_post_rule = json.dumps(post_rule)
+                                headers = {'Content-Type': 'text/plain;charset=UTF-8'}
+                                postRequest = requests.post("http://{0}:{1}/api/iptables".format(host_ip,host_port), headers=headers, data=json_post_rule, timeout=15.0)
+                                try:
+                                    postResponse = postRequest.json()
+                                    if postResponse["Status"] == 200:
+                                        print("HealthAgent - INFO - Successfull SystemAPI Configuration")
+                                        cursor.execute('insert into vaccineLogs (apiid,attackerid) values ({0},{1});'.format(host_id,rule_id))
+                                        conn.commit()
+                                    else:
+                                        print("HealthAgent - ERROR - SystemAPI Failed to configure the rule")
+                                except json.decoder.JSONDecodeError as err:
+                                    print("HealthAgent - ERROR - The response is not a JSON: {0}".format(err))
+                            except requests.exceptions.ConnectTimeout as err:
                                 print("ERROR - Health Agent daemon - Connection timeout: {0}".format(err))
                             except requests.exceptions.ConnectionError as err:
                                 print("ERROR - Health Agent daemon - Connection error: {0}".format(err))
                         elif rule_protocol == "ICMP":
                             try:
+                                headers = {'Content-Type': 'text/plain;charset=UTF-8'}
                                 post_rule = {"API Register Key": host_key, "Table": "filter", "Action": "append","Chain": "input","Rule": {"Protocol": rule_protocol.lower(), "Source": rule_srcaddr,"Destination": rule_dstaddr}}
-                                postRequest = requests.post("http://{0}:{1}/iptables".format(host_ip, host_port),data=json.dumps(post_rule), timeout=15.0)
-                                cursor.execute('insert into vaccineLogs (apiid,attackerid) values ({0},{1});'.format(host_id,rule_id))
-                                conn.commit()
-                            except requests.exceptions.ConnectionTimeout as err:
+                                postRequest = requests.post("http://{0}:{1}/api/iptables".format(host_ip, host_port), headers=headers, data=json.dumps(post_rule), timeout=15.0)
+                                try:
+                                    postResponse = postRequest.json()
+                                    if postResponse["Status"] == 200:
+                                        print("HealthAAgent - INFO - Successfull SystemAPI Configuration")
+                                        cursor.execute('insert into vaccineLogs (apiid,attackerid) values ({0},{1});'.format(host_id,rule_id))
+                                        conn.commit()
+                                    else:
+                                        print("HealthAgent - ERROR - SystemAPI Failed to configure the rule")
+                                except json.decoder.JSONDecodeError as err:
+                                    print("HealthAgent - ERROR - The response is not a JSON: {0}".format(err))
+                            except requests.exceptions.ConnectTimeout as err:
                                 print("ERROR - Health Agent daemon - Connection timeout: {0}".format(err))
                             except requests.exceptions.ConnectionError as err:
                                 print("ERROR - Heath Agent daemon - Connection error: {0}".format(err))

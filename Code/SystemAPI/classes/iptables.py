@@ -10,7 +10,10 @@ class iptables():
         self.tableName = table
         self.actionName = action
         self.chainName = chain.swapcase()
-        self.ruleOptions = json.loads(rule)
+        if isinstance(rule, str):
+            self.ruleOptions = json.loads(rule)
+        else:
+            self.ruleOptions = rule
         self.controllAddr = address
         self.statusCode = None
         self.ruleID = 0

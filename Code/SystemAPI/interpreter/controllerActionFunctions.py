@@ -107,27 +107,30 @@ def trustHTTPS(controller,postData):
     try:
         print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
         postRequest = requests.post("https://{0}/register".format(controller[1]), data=json.dumps(postData),timeout=15.0)
-        postResponse = postRequest.json()
-        if postRequest.status_code == 200:
-            status = postResponse["Status"]
-            if status == 200:
-                try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
-                    cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
-                    cursor.execute('update Controllers set controllerkey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
-                    conn.commit()
-                    conn.close()
-                    print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
-                    print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
-                except sqlite3.OperationalError as err:
-                    print("\tERROR - {0}".format(err))
-            elif status == 400:
-                print("\tERROR - Internal controller error: {0}".format(postResponse["Response"]))
+        try:
+            postResponse = postRequest.json()
+            if postRequest.status_code == 200:
+                status = postResponse["Status"]
+                if status == "Success":
+                    try:
+                        conn = sqlite3.connect("database/apiConfiguration.db")
+                        cursor = conn.cursor()
+                        cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
+                        cursor.execute('update Controllers set controllerkey = \"{}\" where id = {};'.format(postResponse["Controller Key"],controller[0]))
+                        conn.commit()
+                        conn.close()
+                        print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
+                        print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
+                    except sqlite3.OperationalError as err:
+                        print("\tERROR - {0}".format(err))
+                elif status == "Error":
+                    print("\tERROR - Internal controller error: {0}".format(postResponse["Response"]))
+                else:
+                    print("\tERROR - Internal controller error")
             else:
-                print("\tERROR - Internal controller error")
-        else:
-            print("\tERROR - Trust request came back with status {0}".format(postRequest.status_code))
+                print("\tERROR - Trust request came back with status {0}".format(postRequest.status_code))
+        except json.decoder.JSONDecodeError as err:
+            print("ERROR - Result was not a JSON")
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -140,27 +143,30 @@ def trustHTTP(controller,postData):
     try:
         print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
         postRequest = requests.post("http://{0}/register".format(controller[1]), data=json.dumps(postData),timeout=15.0)
-        postResponse = postRequest.json()
-        if postRequest.status_code == 200:
-            status = postResponse["Status"]
-            if (status == 200):
-                try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
-                    cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
-                    cursor.execute('update Controllers set controllerkey = \"{0}\" where id = {1};'.format(postResponse["Controller Key"],controller[0]))
-                    conn.commit()
-                    conn.close()
-                    print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
-                    print("\t INFO - Controller: {0} is now trusted by the System-API.".format(controller[3]))
-                except sqlite3.OperationalError as err:
-                    print("\tERROR - {0}".format(err))
-            elif status == 400:
-                print("\tERROR - Internal controller error: {0}".format(postResponse["Response"]))
+        try:
+            postResponse = postRequest.json()
+            if postRequest.status_code == 200:
+                status = postResponse["Status"]
+                if (status == "Success"):
+                    try:
+                        conn = sqlite3.connect("database/apiConfiguration.db")
+                        cursor = conn.cursor()
+                        cursor.execute('update Controllers set trusted = 1 where id = {0};'.format(controller[0]))
+                        cursor.execute('update Controllers set controllerkey = \"{0}\" where id = {1};'.format(postResponse["Controller Key"],controller[0]))
+                        conn.commit()
+                        conn.close()
+                        print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
+                        print("\t INFO - Controller: {0} is now trusted by the System-API.".format(controller[3]))
+                    except sqlite3.OperationalError as err:
+                        print("\tERROR - {0}".format(err))
+                elif status == "Error":
+                    print("\tERROR - Internal controller error: {0}".format(postResponse["Response"]))
+                else:
+                    print("\tERROR - A error has occured.")
             else:
-                print("\tERROR - A error has occured.")
-        else:
-            print("\tERROR - Trust process came back with status {0}".format(postRequest.status_code))
+                print("\tERROR - Trust process came back with status {0}".format(postRequest.status_code))
+        except json.decoder.JSONDecodeError as err:
+            print("ERROR - Response is not a JSON")
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -174,26 +180,29 @@ def untrustHTTPS(controller,postData):
     try:
         print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
         postRequest = requests.post("https://{0}/unregister".format(controller[1]), data=json.dumps(postData),timeout=15.0)
-        postResponse = postRequest.json()
-        if postRequest.status_code == 200:
-            status = postResponse["Status"]
-            if status == 200:
-                try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
-                    cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
-                    conn.commit()
-                    conn.close()
-                    print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
-                    print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
-                except sqlite3.OperationalError as err:
-                    print("\tERROR - {0}".format(err))
-            elif status == 400:
-                print("\tERROR - Internal cotroller error: {0}".format(postResponse["Response"]))
+        try:
+            postResponse = postRequest.json()
+            if postRequest.status_code == 200:
+                status = postResponse["Status"]
+                if status == "Success":
+                    try:
+                        conn = sqlite3.connect("database/apiConfiguration.db")
+                        cursor = conn.cursor()
+                        cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
+                        conn.commit()
+                        conn.close()
+                        print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
+                        print("\tINFO - Controller: {0} is now trusted by System-API".format(controller[3]))
+                    except sqlite3.OperationalError as err:
+                        print("\tERROR - {0}".format(err))
+                elif status == "Success":
+                    print("\tERROR - Internal cotroller error: {0}".format(postResponse["Response"]))
+                else:
+                    print("\tERROR - A error has occured")
             else:
-                print("\tERROR - A error has occured")
-        else:
-            print("\tERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
+                print("\tERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
+        except json.decoder.JSONDecodeError as err:
+            print("ERROR - Response is not a JSON")
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:
@@ -206,27 +215,30 @@ def untrustHTTP(controller,postData):
     try:
         print("\tINFO - Attempting to connect to {0} at port {1}...".format(controller[1], controller[2]))
         postRequest = requests.post("http://{0}/unregister".format(controller[1]), data=json.dumps(postData),timeout=15.0)
-        postResponse = postRequest.json()
-        if postRequest.status_code == 200:
-            status = postResponse["Status"]
-            if status == 200:
-                try:
-                    conn = sqlite3.connect("database/apiConfiguration.db")
-                    cursor = conn.cursor()
-                    cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
-                    conn.commit()
-                    conn.close()
-                    print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
-                    print("\tINFO - Controller: {0} is now untrusted by System-API".format(controller[3]))
+        try:
+            postResponse = postRequest.json()
+            if postRequest.status_code == 200:
+                status = postResponse["Status"]
+                if status == 200:
+                    try:
+                        conn = sqlite3.connect("database/apiConfiguration.db")
+                        cursor = conn.cursor()
+                        cursor.execute('update Controllers set trusted = 0 where id = {0};'.format(controller[0]))
+                        conn.commit()
+                        conn.close()
+                        print("\tOK - Successfully unregistered the system API from the Controller: {0}".format(controller[3]))
+                        print("\tINFO - Controller: {0} is now untrusted by System-API".format(controller[3]))
 
-                except sqlite3.OperationalError as err:
-                    print("\tERROR - {0}".format(err))
-            elif status == 400:
-                print("\tERROR - Internal controller error: {0}".format(postResponse["Response"]))
+                    except sqlite3.OperationalError as err:
+                        print("\tERROR - {0}".format(err))
+                elif status == 400:
+                    print("\tERROR - Internal controller error: {0}".format(postResponse["Response"]))
+                else:
+                    print("\tERROR - A error has occured.")
             else:
-                print("\tERROR - A error has occured.")
-        else:
-            print("\tERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
+                print("\tERROR - Untrust request came back with message: {0}, and status code: {1}".format(postRequest.text,postRequest.status_code))
+        except json.decoder.JSONDecodeError as err:
+            print("ERROR - Response is not a JSON")
     except requests.exceptions.ConnectTimeout:
         print("\tERROR - Unable to connect to {0} at port {1}".format(controller[1], controller[2]))
     except requests.exceptions.ConnectionError:

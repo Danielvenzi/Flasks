@@ -108,7 +108,7 @@ def controllerTrust(options,value):
                     trustHTTP(controller,response["postData"])
 
                 else:
-                    print("Another port but still https")
+                    trustHTTP(controller,response["postData"])
             elif trusted == True:
                 print("INFO - Controller: {} is already trusted by the SystemAPI".format(controller[3]))
 
@@ -125,7 +125,7 @@ def controllerTrust(options,value):
                 elif int(controller[2]) == 80:
                     trustHTTP(controller,response["postData"])
                 else:
-                    print("Anotger port but still https")
+                    trustHTTP(controller,response["postData"])
             elif trusted == True:
                 print("INFO - Controller {} is already trusted by the SystemAPI".format(controller[3]))
 
