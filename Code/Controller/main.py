@@ -163,7 +163,7 @@ if __name__ == "__main__":
                     healthAgentPID = os.fork()
                     if healthAgentPID == 0:
                         time.sleep(3)
-                        healthAgent.applyVaccines(healthAgent.getSAPIs(), healthAgent.getRULES())
+                        healthAgent.main()
                     else:
                         try:
                             conn = sqlite3.connect("database/controllerConfiguration.db")
