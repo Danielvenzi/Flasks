@@ -103,6 +103,7 @@ def checkIfExpired():
                         cursor.execute("delete from IptablesLogs where id = {0};".format(rule[0]))
                         conn.commit()
                         print("INFO - Deleting rule with id: {0}".format(rule[0]))
+                        deleteIptables(rule[0])
                     except sqlite3.OperationalError as err:
                         print("ERROR - ruleCleaner Daemon -  An error has occured: {0}".format(err))
 
