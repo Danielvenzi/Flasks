@@ -111,7 +111,7 @@ def trustHTTPS(controller,postData):
             postResponse = postRequest.json()
             if postRequest.status_code == 200:
                 status = postResponse["Status"]
-                if status == 200:
+                if status == "Success":
                     try:
                         conn = sqlite3.connect("database/apiConfiguration.db")
                         cursor = conn.cursor()
@@ -147,7 +147,7 @@ def trustHTTP(controller,postData):
             postResponse = postRequest.json()
             if postRequest.status_code == 200:
                 status = postResponse["Status"]
-                if status == 200:
+                if status == "Success":
                     print("\tOK - Successfully registered the system API into Controller: {0}".format(controller[3]))
                     conn = sqlite3.connect("database/apiConfiguration.db")
                     cursor = conn.cursor()
@@ -159,6 +159,7 @@ def trustHTTP(controller,postData):
                 elif status == 400:
                     print("\tERROR - Internal controller Error: {0}".format(postResponse["Response"]))
                 else:
+                    print(postResponse["Status"])
                     print("\tERROR - An error has occured")
             else:
                 print("\tERROR - Trust process came back with status {0}".format(postRequest.status_code))
@@ -181,7 +182,7 @@ def untrustHTTPS(controller,postData):
             postResponse = postRequest.json()
             if postRequest.status_code == 200:
                 status = postResponse["Status"]
-                if status == 200:
+                if status == "Success":
                     try:
                         conn = sqlite3.connect("database/apiConfiguration.db")
                         cursor = conn.cursor()
@@ -216,7 +217,7 @@ def untrustHTTP(controller,postData):
             postResponse = postRequest.json()
             if postRequest.status_code == 200:
                 status = postResponse["Status"]
-                if status == 200:
+                if status == "Success":
                     try:
                         conn = sqlite3.connect("database/apiConfiguration.db")
                         cursor = conn.cursor()
