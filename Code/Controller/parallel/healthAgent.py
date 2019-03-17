@@ -11,7 +11,7 @@ def getSAPIs():
     cursor = conn.cursor()
 
     try:
-        cursor.execute('select id,apihost,apiport,apikey from SystemAPI;')
+        cursor.execute('select id,apihost,apiport,apikey from SystemAPI where apitype=\"{0}\";'.format("systemapi"))
         query_result = cursor.fetchall()
         conn.close()
 
