@@ -1,5 +1,7 @@
 import sqlite3
 import time
+import requests
+import json
 
 # Function that retrieves the current time in epochmilis, this time will be used to determine if a rule is expired
 def currentEpochMilis():
@@ -21,6 +23,56 @@ def getRulesTTL(databasePath):
 
     except sqlite3.OperationalError as err:
         print("ERROR - ruleCleaner Daemon - An error has occured: {0}".format(err))
+
+
+def deleteIptables(ruleID):
+    conn = sqlite3.connect("database/apiConfiguration.db")
+    cursor = conn.cursor()
+
+    cursor.execute("select * from IptablesLogs where id = {0};".format(ruleID))
+    result = cursor.fetchall()
+
+    iptables_log = result[0]
+    iterator = 6
+    rule_json = {}
+    equivalent_postiion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT", "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
+    while (iterator <= len(iptables_log)-1):
+        if iterator == len(iptables_log)-1:
+            continue
+        elif iptables_log[iterator] != None:
+            rule_json[equivalent_postiion[iterator-6]] = iptables_log[iterator]
+        elif iptables_log[iterator] == None:
+            continue
+
+    api_delete_request = {"Table":iptables_log[3], "Action":"delete", "Chain":iptables_log[5], "Rule":rule_json}
+    print("This is the delete request: {0}".format(api_delete_request))
+    cursor.execute("select host,port from APIConfig;")
+    result = cursor.fetchall()
+    api_config = result[0]
+    conn.close()
+
+    try:
+        json_post_rule = json.dumps(api_delete_request)
+        headers = {'Content-Type': 'text/plain;charset=UTF-8'}
+        if api_config[0] != "0.0.0.0":
+            addr = "127.0.0.1"
+        else:
+            addr = api_config[0]
+
+        postRequest = requests.post("http://{0}:{1}/api/iptables".format(addr,api_config[1]), headers=headers,
+                                data=json_post_rule, timeout=15.0)
+        try:
+            postResponse = postRequest.json()
+            if postResponse["Status"] == 200:
+                print("ruleCleaner - INFO - Successfull rule Deletion")
+            else:
+                print("ruleCleaner - ERROR - ruleCleaner Failed to configure the rule")
+        except json.decoder.JSONDecodeError as err:
+            print("ruleCleaner - ERROR - The response is not a JSON: {0}".format(err))
+    except requests.exceptions.ConnectTimeout as err:
+        print("ERROR - ruleCleaner - Connection timeout: {0}".format(err))
+    except requests.exceptions.ConnectionError as err:
+        print("ERROR - ruleCleaner - Connection error: {0}".format(err))
 
 
 # Function that checks expiration rule by rule, if the rule is expired delete them
