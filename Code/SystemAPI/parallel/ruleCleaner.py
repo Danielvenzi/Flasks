@@ -30,6 +30,10 @@ def deleteIptables(ruleID):
     conn = sqlite3.connect("database/apiConfiguration.db")
     cursor = conn.cursor()
 
+    cursor.execute("select registerkey from RegisterInfo;")
+    query_result = cursor.fetchall()
+    apikey = query_result[0]
+
     cursor.execute("select * from IptablesLogs where id = {0};".format(ruleID))
     result = cursor.fetchall()
 
@@ -56,7 +60,7 @@ def deleteIptables(ruleID):
         iterator += 1
         print("Iterator: {0}".format(iterator))
 
-    api_delete_request = {"Table":iptables_log[3], "Action":"delete", "Chain":iptables_log[5], "Rule":rule_json}
+    api_delete_request = {"API Register Key":apikey,"Table":iptables_log[3], "Action":"delete", "Chain":iptables_log[5], "Rule":rule_json}
     print("This is the delete request: {0}".format(api_delete_request))
     cursor.execute("select host,port from APIConfig;")
     result = cursor.fetchall()
