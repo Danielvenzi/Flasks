@@ -170,7 +170,6 @@ if __name__ == "__main__":
     try:
         if sys.argv[1] == "run":
             forkPid = os.fork()
-            #forkPid = 1
             if forkPid == 0:
                 time.sleep(3)
                 # Initializes the rule cleaner daemon

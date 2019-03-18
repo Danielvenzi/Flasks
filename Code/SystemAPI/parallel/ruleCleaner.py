@@ -35,12 +35,13 @@ def deleteIptables(ruleID):
     iptables_log = result[0]
     iterator = 6
     rule_json = {}
-    equivalent_postiion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT", "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
+    print("Chegamos aqui com iptables_logs: {0}".format(iptables_log))
+    equivalent_postion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT", "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
     while (iterator <= len(iptables_log)-1):
         if iterator == len(iptables_log)-1:
             continue
         elif iptables_log[iterator] != None:
-            rule_json[equivalent_postiion[iterator-6]] = iptables_log[iterator]
+            rule_json[equivalent_postion[iterator-6]] = iptables_log[iterator]
         elif iptables_log[iterator] == None:
             continue
 
@@ -103,6 +104,7 @@ def checkIfExpired():
                         cursor.execute("delete from IptablesLogs where id = {0};".format(rule[0]))
                         conn.commit()
                         print("INFO - Deleting rule with id: {0}".format(rule[0]))
+                        print("INFO - ruleCleaner - Deleting the rule...")
                         deleteIptables(rule[0])
                     except sqlite3.OperationalError as err:
                         print("ERROR - ruleCleaner Daemon -  An error has occured: {0}".format(err))
