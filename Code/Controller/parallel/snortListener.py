@@ -50,7 +50,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                 destinated_port = destinated_port.strip("\n")
 
                 final_parsed = {"Source":sourced_ip,"Destination":destinated_ip,"Source Port":source_port,"Destination Port":destinated_port,"Protocol":parsed_syslog["Type"]}
-                cursor.execute("select from knownAttackers where protocol = \"{0}\" and dstaddr = \"{1}\" and srcaddr = \"{2}\" and dsport = {3} and srcport = {4};".format(parsed_syslog["Type"],destinated_ip,sourced_ip,destinated_port,source_port))
+                cursor.execute("select id from knownAttackers where protocol = \"{0}\" and dstaddr = \"{1}\" and srcaddr = \"{2}\" and dsport = {3} and srcport = {4};".format(parsed_syslog["Type"],destinated_ip,sourced_ip,destinated_port,source_port))
                 result = cursor.fetchall()
 
                 if len(result) == 0:
@@ -70,7 +70,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
 
             elif parsed_syslog["Type"] == "ICMP":
                 current_milli_time = int(round(time.time() * 1000))
-                cursor.execute("select from knownAttackers where protocol = \"{0}\" and dstaddr = \"{1}\" and srcaddr = \"{2}\";".format(parsed_syslog["Type"],parsed_syslog["Destination"],parsed_syslog["Source"]))
+                cursor.execute("select id from knownAttackers where protocol = \"{0}\" and dstaddr = \"{1}\" and srcaddr = \"{2}\";".format(parsed_syslog["Type"],parsed_syslog["Destination"],parsed_syslog["Source"]))
                 result = cursor.fetchall()
 
                 if len(result) == 0:
