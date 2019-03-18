@@ -49,6 +49,7 @@ def checkIfExpired():
                 if ((currentTime-rule[1]) >= twoHoursInMiliSeconds):
                     try:
                         cursor.execute("delete from knownAttackers where id = {0};".format(rule[0]))
+                        cursor.execute("delete from vaccineLogs where id = {0};".format(rule[0]))
                         conn.commit()
                         print("RuleCleaner - INFO - Deleting rule with id: {0}".format(rule[0]))
                     except sqlite3.OperationalError as err:

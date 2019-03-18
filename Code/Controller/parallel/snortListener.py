@@ -21,7 +21,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
         currentTime = datetime.datetime.today().strftime('%Y-%m-%d')
         data = "Time: {3} - Source: {0}:{1} -> {2}".format(str(self.client_address[0]),str(self.client_address[1]),str(data),str(currentTime))
 
-        print("SyslogServer - Arriving Syslog packet -  {0}".format(data))
+        #print("SyslogServer - Arriving Syslog packet -  {0}".format(data))
 
         #messages = syslogParser.read_log_file("parallel/logSnort2.txt")
 
