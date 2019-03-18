@@ -165,15 +165,31 @@ def apiIptablesCreate():
 
     return jsonify(response)
 
+# Executa um arquivo a partir do seu caminho absoluto
+def execfile(filepath, globals=None, locals=None):
+    if globals is None:
+        globals = {}
+    globals.update({
+        "__file__": filepath,
+        "__name__": "__main__",
+    })
+    with open(filepath, 'rb') as file:
+        exec(compile(file.read(), filepath, 'exec'), globals, locals)
+
+# execute the file
+#execfile("/path/to/somefile.py")
+
+
 
 if __name__ == "__main__":
     try:
         if sys.argv[1] == "run":
             forkPid = os.fork()
             if forkPid == 0:
-                time.sleep(3)
+                time.sleep(1)
                 # Initializes the rule cleaner daemon
-                checkIfExpired()
+                execfile("parallel/ruleCleaner.py")
+                os._exit(0)
             else:
                 try:
                     print("INFO - Initializing SystemAPI ... ")
@@ -201,8 +217,8 @@ if __name__ == "__main__":
         elif sys.argv[1] == "config":
             interpreterMainLoop()
 
-        else:
-            print("ERROR - Invalid command line option passed: {0}".format(sys.argv[1]))
+        #else:
+        #    print("ERROR - Invalid command line option passed: {0}".format(sys.argv[1]))
 
     except IndexError as err:
         print("ERROR - No command line option given: {0}".format(err))

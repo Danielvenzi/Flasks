@@ -26,7 +26,6 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
         #messages = syslogParser.read_log_file("parallel/logSnort2.txt")
 
         parsed_syslog = syslogParser.interpretAlert(data)
-        print(parsed_syslog)
         parsed_syslog_keys = list(parsed_syslog.keys())
         if not "Source" in parsed_syslog_keys and not "Destination" in parsed_syslog_keys:
             pass
