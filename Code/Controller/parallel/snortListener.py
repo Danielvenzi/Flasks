@@ -50,32 +50,40 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                 destinated_port = destinated_port.strip("\n")
 
                 final_parsed = {"Source":sourced_ip,"Destination":destinated_ip,"Source Port":source_port,"Destination Port":destinated_port,"Protocol":parsed_syslog["Type"]}
-                #print(final_parsed)
+                cursor.execute("select from knownAttackers where protocol = \"{0}\" and dstaddr = \"{1}\" and srcaddr = \"{2}\" and dsport = {3} and srcport = {4};".format(parsed_syslog["Type"],
+                                                                                                                                                                            destinated_ip,sourced_ip,destinated_port,source_port))
+                result = cursor.fetchall()
 
-                current_milli_time = int(round(time.time() * 1000))
+                if len(result) == 0:
 
-                if ":" in parsed_syslog["Source"]:
-                    pass
-                elif not ":" in parsed_syslog["Source"]:
-                    try:
-                        cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
-                        conn.commit()
-                        conn.close()
-                    except sqlite3.OperationalError as err:
-                        print("\tERROR - Snort Listener TCP/UDP -Internal server error: {0}".format(err))
+                    current_milli_time = int(round(time.time() * 1000))
+
+                    if ":" in parsed_syslog["Source"]:
+                        pass
+                    elif not ":" in parsed_syslog["Source"]:
+                        try:
+                            cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
+                            conn.commit()
+                            conn.close()
+                        except sqlite3.OperationalError as err:
+                            print("\tERROR - Snort Listener TCP/UDP -Internal server error: {0}".format(err))
 
 
             elif parsed_syslog["Type"] == "ICMP":
                 current_milli_time = int(round(time.time() * 1000))
+                cursor.execute("select from knownAttackers where protocol = \"{0}\" and dstaddr = \"{1}\" and srcaddr = \"{2}\";".format(parsed_syslog["Type"],parsed_syslog["Destination"],parsed_syslog["Source"]))
+                result = cursor.fetchall()
 
-                if ":" in parsed_syslog["Source"]:
-                    pass
-                if not ":" in parsed_syslog["Source"]:
-                    try:
-                        cursor.execute("insert into knownAttackers (srcaddr,dstaddr,protocol,ttl) values (\"{0}\",\"{1}\",\"{2}\",{3});".format(parsed_syslog["Source"],parsed_syslog["Destination"],parsed_syslog["Type"],current_milli_time))
-                        conn.commit()
-                    except sqlite3.OperationalError as err:
-                        print("\tERROR - Snort Listener ICMP - Internal server error: {0}".format(err))
+                if len(result) == 0:
+
+                    if ":" in parsed_syslog["Source"]:
+                        pass
+                    if not ":" in parsed_syslog["Source"]:
+                        try:
+                            cursor.execute("insert into knownAttackers (srcaddr,dstaddr,protocol,ttl) values (\"{0}\",\"{1}\",\"{2}\",{3});".format(parsed_syslog["Source"],parsed_syslog["Destination"],parsed_syslog["Type"],current_milli_time))
+                            conn.commit()
+                        except sqlite3.OperationalError as err:
+                            print("\tERROR - Snort Listener ICMP - Internal server error: {0}".format(err))
 
 
         logging.info(str(data))
