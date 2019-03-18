@@ -39,8 +39,10 @@ def deleteIptables(ruleID):
     print("Chegamos aqui com iptables_logs: {0}".format(iptables_log))
     equivalent_postion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT",
                           "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
-
+    print("Iterator: {0}".format(iterator))
+    print("Size: {1}".format(len(iptables_log)-1))
     while (iterator <= len(iptables_log)-1):
+        print("Inside the loop")
         if iterator == len(iptables_log)-1:
             continue
         elif iptables_log[iterator] != None:
