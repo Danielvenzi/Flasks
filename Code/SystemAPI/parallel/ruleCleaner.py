@@ -26,7 +26,6 @@ def getRulesTTL(databasePath):
 
 
 def deleteIptables(ruleID):
-    print("Vamos começar o delete")
     conn = sqlite3.connect("database/apiConfiguration.db")
     cursor = conn.cursor()
 
@@ -40,14 +39,10 @@ def deleteIptables(ruleID):
     iptables_log = result[0]
     iterator = 6
     rule_json = {}
-    print("Chegamos aqui com iptables_logs: {0}".format(iptables_log))
-    equivalent_postion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT",
-                          "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
-    print("Iterator: {0}".format(iterator))
-    print("Size: {0}".format(len(iptables_log)-1))
-    time.sleep(5)
+    equivalent_postion = ["Protocol", "Destination", "Source",
+                          "Interface IN", "Interface OUT","Destination Port",
+                          "Source Port", "SYN", "TCP Flags", "Jump"]
     while (iterator <= len(iptables_log)-1):
-        print("Inside the loop")
         if iterator == len(iptables_log)-1:
             iterator += 1
             continue
@@ -58,10 +53,8 @@ def deleteIptables(ruleID):
             continue
 
         iterator += 1
-        print("Iterator: {0}".format(iterator))
 
     api_delete_request = {"API Register Key":apikey,"Table":iptables_log[3], "Action":"delete", "Chain":iptables_log[5], "Rule":rule_json}
-    print("This is the delete request: {0}".format(api_delete_request))
     cursor.execute("select host,port from APIConfig;")
     result = cursor.fetchall()
     api_config = result[0]
