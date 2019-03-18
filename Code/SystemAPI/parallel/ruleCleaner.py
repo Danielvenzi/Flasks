@@ -32,7 +32,7 @@ def deleteIptables(ruleID):
 
     cursor.execute("select registerkey from RegisterInfo;")
     query_result = cursor.fetchall()
-    apikey = query_result[0]
+    apikey = query_result[0][0]
 
     cursor.execute("select * from IptablesLogs where id = {0};".format(ruleID))
     result = cursor.fetchall()
