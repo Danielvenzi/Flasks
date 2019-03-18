@@ -41,6 +41,7 @@ def deleteIptables(ruleID):
                           "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
     print("Iterator: {0}".format(iterator))
     print("Size: {0}".format(len(iptables_log)-1))
+    time.sleep(5)
     while (iterator <= len(iptables_log)-1):
         print("Inside the loop")
         if iterator == len(iptables_log)-1:
@@ -51,6 +52,7 @@ def deleteIptables(ruleID):
             continue
 
         iterator += 1
+        print("Iterator: {0}".format(iterator))
 
     api_delete_request = {"Table":iptables_log[3], "Action":"delete", "Chain":iptables_log[5], "Rule":rule_json}
     print("This is the delete request: {0}".format(api_delete_request))
