@@ -8,6 +8,7 @@ import datetime
 import sqlite3
 import time
 import syslogParser
+import json
 
 os.system(r"touch {0}".format(LOG_FILE))
 
