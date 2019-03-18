@@ -50,6 +50,8 @@ def deleteIptables(ruleID):
         elif iptables_log[iterator] == None:
             continue
 
+        iterator += 1
+
     api_delete_request = {"Table":iptables_log[3], "Action":"delete", "Chain":iptables_log[5], "Rule":rule_json}
     print("This is the delete request: {0}".format(api_delete_request))
     cursor.execute("select host,port from APIConfig;")
