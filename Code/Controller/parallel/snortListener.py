@@ -64,11 +64,11 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
             elif parsed_syslog["Type"] == "ICMP":
                 current_milli_time = int(round(time.time() * 1000))
 
+                print("Source: {0}".format(parsed_syslog["Source"]))
+                print("Destination: {0}".format(parsed_syslog["Destination"]))
+                print("Protocol: {0}".format(parsed_syslog["Type"]))
+                print("TTL: {0}".format(current_milli_time))
                 try:
-                    print("Source: {0}".format(parsed_syslog["Source"]))
-                    print("Destination: {0}".format(parsed_syslog["Destination"]))
-                    print("Protocol: {0}".format(parsed_syslog["Type"]))
-                    print("TTL: {0}".format(current_milli_time))
                     cursor.execute("insert into knownAttackers (srcaddr,dstaddr,protocol,ttl) values (\"{0}\",\"{1}\",\"{2}\",{3});".format(parsed_syslog["Source"],parsed_syslog["Destination"],parsed_syslog["Type"],current_milli_time))
                     conn.commit()
                 except sqlite3.OperationalError as err:
