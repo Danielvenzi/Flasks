@@ -54,29 +54,28 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
 
                 current_milli_time = int(round(time.time() * 1000))
 
-                print("Source: {0}".format(parsed_syslog["Source"]))
-                print("Destination: {0}".format(parsed_syslog["Destination"]))
-                print("Protocol: {0}".format(parsed_syslog["Type"]))
-                print("TTL: {0}".format(current_milli_time))
-                try:
-                    cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
-                    conn.commit()
-                    conn.close()
-                except sqlite3.OperationalError as err:
-                    print("\tERROR - Snort Listener TCP/UDP -Internal server error: {0}".format(err))
+                if ":" in parsed_syslog["Source"]:
+                    pass
+                elif not ":" in parsed_syslog["Source"]:
+                    try:
+                        cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
+                        conn.commit()
+                        conn.close()
+                    except sqlite3.OperationalError as err:
+                        print("\tERROR - Snort Listener TCP/UDP -Internal server error: {0}".format(err))
+
 
             elif parsed_syslog["Type"] == "ICMP":
                 current_milli_time = int(round(time.time() * 1000))
 
-                print("Source: {0}".format(parsed_syslog["Source"]))
-                print("Destination: {0}".format(parsed_syslog["Destination"]))
-                print("Protocol: {0}".format(parsed_syslog["Type"]))
-                print("TTL: {0}".format(current_milli_time))
-                try:
-                    cursor.execute("insert into knownAttackers (srcaddr,dstaddr,protocol,ttl) values (\"{0}\",\"{1}\",\"{2}\",{3});".format(parsed_syslog["Source"],parsed_syslog["Destination"],parsed_syslog["Type"],current_milli_time))
-                    conn.commit()
-                except sqlite3.OperationalError as err:
-                    print("\tERROR - Snort Listener ICMP - Internal server error: {0}".format(err))
+                if ":" in parsed_syslog["Source"]:
+                    pass
+                if not ":" in parsed_syslog["Source"]:
+                    try:
+                        cursor.execute("insert into knownAttackers (srcaddr,dstaddr,protocol,ttl) values (\"{0}\",\"{1}\",\"{2}\",{3});".format(parsed_syslog["Source"],parsed_syslog["Destination"],parsed_syslog["Type"],current_milli_time))
+                        conn.commit()
+                    except sqlite3.OperationalError as err:
+                        print("\tERROR - Snort Listener ICMP - Internal server error: {0}".format(err))
 
 
         logging.info(str(data))
