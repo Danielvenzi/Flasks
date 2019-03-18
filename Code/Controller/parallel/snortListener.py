@@ -58,7 +58,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                     conn.commit()
                     conn.close()
                 except sqlite3.OperationalError as err:
-                    print("\tERROR - Internal server error: {0}".format(err))
+                    print("\tERROR - Snort Listener TCP/UDP -Internal server error: {0}".format(err))
 
             elif parsed_syslog["Type"] == "ICMP":
                 current_milli_time = int(round(time.time() * 1000))
@@ -67,7 +67,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                     cursor.execute("insert into knownAttackers (srcaddr,dstaddr,protocol,ttl) values (\"{0}\",\"{1}\",\"{2}\",{3});".format(parsed_syslog["Source"],parsed_syslog["Destination"],parsed_syslog["Type"],current_milli_time))
                     conn.commit()
                 except sqlite3.OperationalError as err:
-                    print("\tERROR - Internal server error: {0}".format(err))
+                    print("\tERROR - Snort Listener ICMP - Internal server error: {0}".format(err))
 
 
         logging.info(str(data))
