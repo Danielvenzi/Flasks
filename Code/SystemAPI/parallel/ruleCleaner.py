@@ -26,6 +26,7 @@ def getRulesTTL(databasePath):
 
 
 def deleteIptables(ruleID):
+    print("Vamos começar o delete")
     conn = sqlite3.connect("database/apiConfiguration.db")
     cursor = conn.cursor()
 
@@ -36,7 +37,9 @@ def deleteIptables(ruleID):
     iterator = 6
     rule_json = {}
     print("Chegamos aqui com iptables_logs: {0}".format(iptables_log))
-    equivalent_postion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT", "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
+    equivalent_postion = ["Protocol", "Destination", "Source", "Interface IN", "Interface OUT",
+                          "Destination Port","Source Port", "SYN", "TCP Flags", "Jump"]
+
     while (iterator <= len(iptables_log)-1):
         if iterator == len(iptables_log)-1:
             continue
@@ -101,11 +104,11 @@ def checkIfExpired():
                 currentTime = currentEpochMilis()
                 if ((currentTime-rule[1]) >= twoHoursInMiliSeconds):
                     try:
+                        print("INFO - ruleCleaner - Deleting the rule...")
+                        deleteIptables(rule[0])
                         cursor.execute("delete from IptablesLogs where id = {0};".format(rule[0]))
                         conn.commit()
                         print("INFO - Deleting rule with id: {0}".format(rule[0]))
-                        print("INFO - ruleCleaner - Deleting the rule...")
-                        deleteIptables(rule[0])
                     except sqlite3.OperationalError as err:
                         print("ERROR - ruleCleaner Daemon -  An error has occured: {0}".format(err))
 
