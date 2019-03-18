@@ -20,7 +20,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
         data = bytes.decode(self.request[0].strip())
         socket = self.request[1]
         currentTime = datetime.datetime.today().strftime('%Y-%m-%d')
-        data = "Time: {3} - Source: {0}:{1} -> {2}".format(str(self.client_address[0]),str(self.client_address[1]),str(data),str(currentTime))
+        #data = "Time: {3} - Source: {0}:{1} -> {2}".format(str(self.client_address[0]),str(self.client_address[1]),str(data),str(currentTime))
 
         #print("SyslogServer - Arriving Syslog packet -  {0}".format(data))
 
@@ -79,7 +79,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
 
 
         logging.info(str(data))
-        os.system(r"echo '{0}' >> logs/youlogfile.log".format(data))
+        #os.system(r"echo '{0}' >> logs/youlogfile.log".format(data))
         os.system(r"sed -i -e 's| \* Running on http://0\.0\.0\.0:80/ (Press CTRL+C to quit)||' {0} ;  sed -i '/^\s*$/d' {0}".format(LOG_FILE))
 
 def mainSyslogServer():
