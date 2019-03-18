@@ -45,10 +45,12 @@ def deleteIptables(ruleID):
     while (iterator <= len(iptables_log)-1):
         print("Inside the loop")
         if iterator == len(iptables_log)-1:
+            iterator += 1
             continue
         elif iptables_log[iterator] != None:
             rule_json[equivalent_postion[iterator-6]] = iptables_log[iterator]
         elif iptables_log[iterator] == None:
+            iterator += 1
             continue
 
         iterator += 1
