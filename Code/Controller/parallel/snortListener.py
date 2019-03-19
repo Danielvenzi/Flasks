@@ -58,9 +58,12 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                 cursor.execute("""select * from knownAttackers where protocol=\"{0}\" and
                                dstaddr=\"{1}\" and
                                srcaddr=\"{2}\" and
-                               dstport={3} and srcport={4};""".format(parsed_syslog["Type"],
-                                                                      destinated_ip,sourced_ip,
-                                                                      destinated_port,source_port))
+                               dstport={3} and
+                               srcport={4};""".format(parsed_syslog["Type"],
+                                                      destinated_ip,
+                                                      sourced_ip,
+                                                      destinated_port,
+                                                      source_port))
                 result = cursor.fetchall()
 
                 if len(result) == 0:
