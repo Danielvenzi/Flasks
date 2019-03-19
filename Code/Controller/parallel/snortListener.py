@@ -58,7 +58,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                 print(final_parsed)
                 try:
                     int_source_port = int(source_port)
-                    cursor.execute("""select * from knownAttackers where protocol=\"{0}\" and
+                    cursor.execute("""select * from knownAttackers where protocol=\"%s\" and
                                 dstaddr=\"%s\" and
                                 srcaddr=\"%s\" and
                                 dstport=%d and
