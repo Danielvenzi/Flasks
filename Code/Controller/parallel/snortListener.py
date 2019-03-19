@@ -56,13 +56,13 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                                 "Protocol":parsed_syslog["Type"]}
 
                 print(final_parsed)
-                print(int(source_port))
                 try:
                     cursor.execute("""select * from knownAttackers where protocol=\"{0}\" and
                                 dstaddr=\"%s\" and
                                 srcaddr=\"%s\" and
                                 dstport=%d and
-                                srcport=%d;""" % (parsed_syslog["Type"],destinated_ip,sourced_ip,int(destinated_port),int(source_port)))
+                                srcport=%d;""" % (parsed_syslog["Type"],
+                                                  destinated_ip,sourced_ip,int(destinated_port),int(source_port)))
                     result = cursor.fetchall()
 
                     if len(result) == 0:
