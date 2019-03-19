@@ -59,7 +59,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                                dstaddr=\"%s\" and
                                srcaddr=\"%s\" and
                                dstport=%d and
-                               srcport=%d;""" % (parsed_syslog["Type"],destinated_ip,sourced_ip,destinated_port,source_port))
+                               srcport=%d;""" % (parsed_syslog["Type"],destinated_ip,sourced_ip,int(destinated_port),int(source_port)))
                 result = cursor.fetchall()
 
                 if len(result) == 0:
