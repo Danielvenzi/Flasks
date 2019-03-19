@@ -9,7 +9,7 @@ class iptables():
     def __init__(self,table,action,chain,rule,address):
         self.tableName = table
         self.actionName = action
-        self.chainName = chain.swapcase()
+        self.chainName = chain.upper()
         if isinstance(rule, str):
             self.ruleOptions = json.loads(rule)
         else:
@@ -51,6 +51,7 @@ class iptables():
             if iptablesCommand == None:
                 return self.statusReponse()
             else:
+                print(iptablesCommand)
                 os.system(iptablesCommand)
                 if self.statusCode == "SD":
                     return self.statusReponse()
@@ -288,8 +289,8 @@ class iptables():
                     self.executeSQL(deleteQuery,"delete")
                     if self.statusCode == "UD":
                         return None
-                elif self.statusCode == "CN":
-                    return None
+                #elif self.statusCode == "CN":
+                 #   return None
 
             if self.statusCode == "CN":
                 ruleString = self.formatRuleSpecifications()
