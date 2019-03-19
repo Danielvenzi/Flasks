@@ -70,10 +70,10 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                     if len(result) == 0:
                         current_milli_time = int(round(time.time() * 1000))
 
-                        if ":" in parsed_syslog["Source"]:
+                        if not ":" in sourced_ip and ":" in parsed_syslog["Source"]:
                             print("There is : in the source..")
                             pass
-                        elif not ":" in parsed_syslog["Source"]:
+                        elif not ":" in sourced_ip:
                             try:
                                 print("Inserting...")
                                 cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
