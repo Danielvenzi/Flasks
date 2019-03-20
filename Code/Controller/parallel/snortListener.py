@@ -57,7 +57,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                                 "Protocol":parsed_syslog["Type"]}
 
                 try:
-                    print(final_parsed)
+                    #print(final_parsed)
                     int_source_port = int(source_port)
                     cursor.execute("""select * from knownAttackers where protocol=\"%s\" and
                                 dstaddr=\"%s\" and
@@ -66,17 +66,17 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                                 srcport=%d;""" % (parsed_syslog["Type"],
                                                   destinated_ip,sourced_ip,int(destinated_port),int_source_port))
                     result = cursor.fetchall()
-                    print(len(result))
+                    #print(len(result))
 
                     if len(result) == 0:
                         current_milli_time = int(round(time.time() * 1000))
 
                         if not (":" in sourced_ip) and (":" in parsed_syslog["Source"]) and (re.search('[a-zA-Z]',sourced_ip)):
-                            print("There is : in the source..")
+                            #print("There is : in the source..")
                             pass
                         elif not (":" in sourced_ip):
                             try:
-                                print("Inserting...")
+                                #print("Inserting...")
                                 cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
                                 conn.commit()
                                 conn.close()
