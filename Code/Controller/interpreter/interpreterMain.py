@@ -102,7 +102,7 @@ def interpreterMainLoop():
     while True:
         command = input(r"{0}@Controller: ".format(userName,hostName))
         arraySpecifics = gatherCommandDetails(command)
-        print(arraySpecifics)
+        #print(arraySpecifics)
         commandResponse = execute(arraySpecifics)
         if commandResponse == "exit":
             break

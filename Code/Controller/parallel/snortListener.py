@@ -11,7 +11,7 @@ import syslogParser
 import re
 import json
 
-os.system(r"touch {0}".format(LOG_FILE))
+#os.system(r"touch {0}".format(LOG_FILE))
 
 logging.basicConfig(level=logging.INFO, format='%(message)s', datefmt='', filename=LOG_FILE, filemode='a')
 
@@ -27,8 +27,11 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
 
         #messages = syslogParser.read_log_file("parallel/logSnort2.txt")
 
+        print(data)
         parsed_syslog = syslogParser.interpretAlert(data)
+        #print(parsed_syslog)
         parsed_syslog_keys = list(parsed_syslog.keys())
+        #print(parsed_syslog_keys)
         if not "Source" in parsed_syslog_keys and not "Destination" in parsed_syslog_keys:
             pass
         else:
@@ -47,6 +50,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
 
                 destinated_ip = os.popen(r"echo '{0}' | cut -d: -f1".format(destination_ip)).read()
                 destinated_ip = destinated_ip.strip("\n")
+                print(destination_ip)
                 destinated_port = os.popen(r"echo '{0}' | cut -d: -f2".format(destination_ip)).read()
                 destinated_port = destinated_port.strip("\n")
 
@@ -57,7 +61,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                                 "Protocol":parsed_syslog["Type"]}
 
                 try:
-                    #print(final_parsed)
+                    print(final_parsed)
                     int_source_port = int(source_port)
                     cursor.execute("""select * from knownAttackers where protocol=\"%s\" and
                                 dstaddr=\"%s\" and
@@ -128,10 +132,11 @@ def mainSyslogServer():
         print("Cntrl+C Pressed. Shutting down.")
 
 if __name__ == "__main__":
-    try:
-        server = socketserver.UDPServer((HOST,PORT), SyslogUDPHandler)
-        server.serve_forever(poll_interval=0.5)
-    except (IOError, SystemExit):
-        raise
-    except KeyboardInterrupt:
-        print ("Crtl+C Pressed. Shutting down.")
+    #try:
+    #    server = socketserver.UDPServer((HOST,PORT), SyslogUDPHandler)
+    #    server.serve_forever(poll_interval=0.5)
+    #except (IOError, SystemExit):
+    #    raise
+    #except KeyboardInterrupt:
+    #    print ("Crtl+C Pressed. Shutting down.")
+    mainSyslogServer()

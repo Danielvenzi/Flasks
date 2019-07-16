@@ -84,8 +84,8 @@ def requestFormat(requestSituation):
 # Tal caminho retorna um JSON contendo como Response um array de dicts, cada array carrega informações sobre um
 # disco específico no sistema
 @app.route('/api/system/disk/<disk_name>/<byte_unity>')
-@requestFormat("general")
-@requestAuth
+#@requestFormat("general")
+#@requestAuth
 def apiDisk(disk_name,byte_unity):
     disk_name = disk_name.replace("+","/")
     instanceDisk = System("DISK")
@@ -109,8 +109,8 @@ def apiDisk(disk_name,byte_unity):
 #
 # Tal caminho retorna um JSON cotendo como Response um dicionário ondes as chaves representam os núcleos da CPU
 @app.route('/api/system/cpu')
-@requestFormat("general")
-@requestAuth
+#@requestFormat("general")
+#@requestAuth
 def apiCPU():
     instance = System("CPU")
     responseCPU = instance.cpu()
@@ -122,8 +122,8 @@ def apiCPU():
 # Tal caminho retorna um JSON contendo como Response um dicionário onde as chaves contém métricas acerca da utilização
 # de memória no sistema
 @app.route('/api/system/mem')
-@requestFormat("general")
-@requestAuth
+#@requestFormat("general")
+#@requestAuth
 def apiMem():
     instance = System("MEM")
     responseMem = instance.mem()
@@ -140,8 +140,8 @@ def apiMem():
 # Tal caminho retorna um JSON contendo como Response um dicionário cujas chaves representam o protocolo, os valores dessa
 # chave são um array de dicionários contendo informações sobre os programas e suas portas.
 @app.route('/api/system/port/<protocol>')
-@requestFormat("general")
-@requestAuth
+#@requestFormat("general")
+#@requestAuth
 def apiPort(protocol):
     if not protocol in ["all","tcp","udp"]:
         return jsonify({"Response":"Protocolo inválido."})
@@ -155,8 +155,8 @@ def apiPort(protocol):
 
 
 @app.route('/api/iptables',methods=['POST'])
-@requestFormat("iptables")
-@requestAuth
+#@requestFormat("iptables")
+#@requestAuth
 def apiIptablesCreate():
     data = request.get_json(force=True)
     address = request.remote_addr

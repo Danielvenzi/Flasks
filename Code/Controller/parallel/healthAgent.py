@@ -127,7 +127,7 @@ def applyVaccines(hosts,rules):
 def main():
     while True:
         applyVaccines(getSAPIs(),getRULES())
-        time.sleep(60)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
