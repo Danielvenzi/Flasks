@@ -1,0 +1,13 @@
+[Unit]
+Description=SDN Controller para arquitetura de Segurança UIoT
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/home/daniel/Documentos/Flasks/Code/Controller
+ExecStart=/usr/local/bin/ryu-manager --verbose /home/daniel/Documentos/Flasks/Code/Controller/SDN/switchL4.py
+
+[Install]
+WantedBy=multi-user.target
