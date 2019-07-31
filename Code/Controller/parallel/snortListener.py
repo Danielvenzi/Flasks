@@ -81,7 +81,7 @@ class SyslogUDPHandler(socketserver.BaseRequestHandler):
                         elif not (":" in sourced_ip):
                             try:
                                 #print("Inserting...")
-                                cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"],current_milli_time))
+                                cursor.execute("insert into knownAttackers (srcaddr,dstaddr,srcport,dstport,protocol,ttl) values (\"{0}\",\"{1}\",{2},{3},\"{4}\",{5});".format(sourced_ip,destinated_ip,source_port,destinated_port,final_parsed["Protocol"].upper(),current_milli_time))
                                 conn.commit()
                                 conn.close()
                             except sqlite3.OperationalError as err:
