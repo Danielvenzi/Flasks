@@ -10,13 +10,12 @@ def getTTLSystemAPI():
     cursor.execute("select ttl from IptablesLogs;")
     result = cursor.fetchall()
 
-
     if len(result) != 0: 
         intResultAPI = []
         i = 0
         for ttl in result:
-            intResultAPI[i] = int(ttl))
-
+            intResultAPI.append(int(ttl[0]))
+            i += 1
     else:
         intResultAPI = []
 
@@ -30,14 +29,12 @@ def getTTLController():
 
     cursor.execute("select ttl from knownAttackers;")
     result = cursor.fetchall()
-
-
     if len(result) != 0: 
         intResultAPI = []
         i = 0
         for ttl in result:
-            intResultAPI[i] = int(ttl))
-
+            intResultAPI.append(int(ttl[0]))
+            i += 1
     else:
         intResultAPI = []
 
@@ -48,9 +45,13 @@ def firewallMetrics(controllerTTL, apiTTL):
     difference = []
     i = 0
     for ttl in controllerTTL:
-        difference[i] = apiTTL[i] - ttl
-
-    return statistics.mean(difference)
+        difference.append(apiTTL[i] - ttl)
+        i += 1
+    avgr = statistics.mean(difference)
+    stdev = statistics.stdev(difference)
+   
+    print("Media dos tempos: {}".format(avgr))
+    print("Descrio padrao med: {}".format(stdev))
 
 if __name__ == "__main__":
-    print("Essa é média dos tempos: {}".format(firewallMetrics(getTTLController(),getTTLSystemAPI())))
+    firewallMetrics(getTTLController(),getTTLSystemAPI())
