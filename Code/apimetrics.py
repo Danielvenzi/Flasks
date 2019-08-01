@@ -1,5 +1,6 @@
 import sqlite3
 import statistics
+import os
 
 ################################# SystemAPI Metrics ##############################
 
@@ -53,5 +54,32 @@ def firewallMetrics(controllerTTL, apiTTL):
     print("Media dos tempos: {}".format(avgr))
     print("Descrio padrao med: {}".format(stdev))
 
+def deleteLogs():
+    ############ Deletando os dados do Controller ##############
+    connController = sqlite3.connect("Controller/database/controllerConfiguration.db")
+    cursorController = connController.cursor()
+    cursorController.execute("delete from IptablesLogs;")
+    cursorController.execute("delete from vaccineLogs;")
+    connController.commit()
+
+    ########### Deletando os dados da SystemAPI ################
+    conn = sqlite3.connect("SystemAPI/database/apiConfiguration.db")
+    cursor = conn.cursor()
+    cursor.execute("delete from IptablesLogs;")
+    conn.commit()
+
+
+def runAttack(count):
+    os.system("hping3 --faster -c {} -p 22 172.16.5.93".format(count))
+
+
 if __name__ == "__main__":
+    print("\nIncializando o ataque...")
+    runAttack(input("Quantidade de pacotes: "))
+    print("\nTerminando ataque...")
+
     firewallMetrics(getTTLController(),getTTLSystemAPI())
+    print("\nDeletando os logs da solução...")
+    deleteLogs()
+    print("\n\nFeito!")
+    
