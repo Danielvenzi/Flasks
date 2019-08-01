@@ -160,7 +160,7 @@ class iptables():
         currentTime = datetime.datetime.today().strftime('%Y-%m-%d')
         currentTimeMili = int(round(time.time() * 1000))
 
-        if self.actionName == "append":
+        if self.actionName == "append" or self.actionName == "insert":
             sqlCommand = "insert into IptablesLogs (ttl,controlleraddr,receivetime,tablename,action,chain,"
         else:
             sqlCommand = "insert into IptablesLogs (controlleraddr,receivetime,tablename,action,chain,"
