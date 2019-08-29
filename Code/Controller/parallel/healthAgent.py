@@ -79,7 +79,8 @@ def applyVaccines(hosts,rules):
                         try:
                             rule_param = {"Protocol":rule_protocol.lower(),"Source":rule_srcaddr,"Destination":rule_dstaddr,"Destination Port":rule_dstport,"Jump":"DROP"}
                             #rule_param = encodeRuleJSON(rule_param)
-                            post_rule = {"API Register Key":host_key,"Table":"filter","Action":"append","Chain":"input","Rule":rule_param}
+                            #post_rule = {"API Register Key":host_key,"Table":"filter","Action":"append","Chain":"input","Rule":rule_param}
+                            post_rule = {"API Register Key":host_key,"Table":"filter","Action":"insert","Chain":"forward","Rule":rule_param}
                             json_post_rule = json.dumps(post_rule)
                             headers = {'Content-Type': 'text/plain;charset=UTF-8'}
                             postRequest = requests.post("http://{0}:{1}/api/iptables".format(host_ip,host_port), headers=headers, data=json_post_rule, timeout=15.0)
@@ -100,7 +101,8 @@ def applyVaccines(hosts,rules):
                     elif rule_protocol == "ICMP":
                         try:
                             headers = {'Content-Type': 'text/plain;charset=UTF-8'}
-                            post_rule = {"API Register Key": host_key, "Table": "filter", "Action": "append","Chain": "input","Rule": {"Protocol": rule_protocol.lower(), "Source": rule_srcaddr,"Destination": rule_dstaddr}}
+                            #post_rule = {"API Register Key": host_key, "Table": "filter", "Action": "append","Chain": "input","Rule": {"Protocol": rule_protocol.lower(), "Source": rule_srcaddr,"Destination": rule_dstaddr}}
+                            post_rule = {"API Register Key": host_key, "Table": "filter", "Action": "insert","Chain": "forward","Rule": {"Protocol": rule_protocol.lower(), "Source": rule_srcaddr,"Destination": rule_dstaddr}}
                             postRequest = requests.post("http://{0}:{1}/api/iptables".format(host_ip, host_port), headers=headers, data=json.dumps(post_rule), timeout=15.0)
                             try:
                                 postResponse = postRequest.json()

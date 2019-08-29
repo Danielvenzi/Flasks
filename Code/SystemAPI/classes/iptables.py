@@ -160,7 +160,7 @@ class iptables():
         currentTime = datetime.datetime.today().strftime('%Y-%m-%d')
         currentTimeMili = int(round(time.time() * 1000))
 
-        if self.actionName == "append":
+        if self.actionName == "append" or self.actionName == "insert":
             sqlCommand = "insert into IptablesLogs (ttl,controlleraddr,receivetime,tablename,action,chain,"
         else:
             sqlCommand = "insert into IptablesLogs (controlleraddr,receivetime,tablename,action,chain,"
@@ -179,7 +179,7 @@ class iptables():
                         sqlCommand += "{0},".format(sqlOption)
                         changeCounter += 1
                     elif changeCounter == len(ruleDictKeys)-1:
-                        if self.actionName == "append":
+                        if self.actionName == "append" or self.actionName == "insert":
                             sqlCommand += "{0}) values ({6},\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",".format(sqlOption,self.controllAddr,currentTime,self.tableName,self.actionName,self.chainName,currentTimeMili)
                         else:
                             sqlCommand += "{0}) values (\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",".format(sqlOption,self.controllAddr,currentTime,self.tableName,self.actionName,self.chainName)
