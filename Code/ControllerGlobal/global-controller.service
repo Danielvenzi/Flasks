@@ -1,0 +1,15 @@
+[Unit]
+Description=Controller Global para solução UIoT de segurança
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=forking
+Restart=always
+User=root
+Group=root
+WorkingDirectory=/home/daniel/SecAPI/Flasks/Code/ControllerGlobal/
+ExecStart=/home/daniel/SecAPI/Flasks/Code/ControllerGlobal/startup.sh
+
+[Install]
+WantedBy=multi-user.target
